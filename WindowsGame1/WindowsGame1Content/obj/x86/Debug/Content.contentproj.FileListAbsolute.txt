@@ -1,0 +1,2 @@
+c:\users\toshiba\documents\visual studio 2013\Projects\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
+C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
