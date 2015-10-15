@@ -75,13 +75,16 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animacao.cs" />
-    <Compile Include="Assets.cs" />
-    <Compile Include="Camara.cs" />
-    <Compile Include="Cena.cs" />
-    <Compile Include="HUD.cs" />
-    <Compile Include="InputController.cs" />
-    <Compile Include="InputListener.cs" />
+    <Compile Include="Base\Animacao.cs" />
+    <Compile Include="Base\Assets.cs" />
+    <Compile Include="Base\Camara.cs" />
+    <Compile Include="Base\Cena.cs" />
+    <Compile Include="Base\HUD.cs" />
+    <Compile Include="Base\InputController.cs" />
+    <Compile Include="Base\InputListener.cs" />
+    <Compile Include="BuracosDeCor.cs" />
+    <Compile Include="BuracosDeCorrecao.cs" />
+    <Compile Include="Filas.cs" />
     <Compile Include="Magic Stuff\Game.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -95,20 +98,19 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Magic Stuff\GraphicsDeviceService.cs" />
-    <Compile Include="MyGame.cs">
+    <Compile Include="Base\MyGame.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerLocal.cs" />
+    <Compile Include="PlayerRemoto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Base\Program.cs" />
     <Compile Include="Magic Stuff\ServiceContainer.cs" />
-    <Compile Include="Magic Stuff\3D Example.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Magic Stuff\2D Example.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SplashScene.cs" />
-    <Compile Include="Update.cs" />
+    <Compile Include="Base\SplashScene.cs" />
+    <Compile Include="Base\Update.cs" />
+    <Compile Include="Tabuleiro.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

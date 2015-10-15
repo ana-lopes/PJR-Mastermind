@@ -18,3 +18,24 @@ C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\Wind
 C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\WindowsGame1\obj\x86\Debug\XNAForm.csproj.GenerateResource.Cache
 C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
 C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hudFont.xnb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\Splash.xnb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.exe
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.pdb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.dll
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.xml
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\XNAForm.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.GameForm.resources
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\XNAForm.csproj.GenerateResource.Cache
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\wood.xnb

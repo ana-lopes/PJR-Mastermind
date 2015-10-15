@@ -7,7 +7,7 @@ namespace WindowsGame1
 {
     class MyGame : Game
     {
-        public static Game instance;
+        public static MyGame instance;
         private Cena cenaAtual;
         public string name = "lol, XNA e Forms";
 

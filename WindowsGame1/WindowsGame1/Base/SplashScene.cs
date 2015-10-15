@@ -38,7 +38,7 @@ namespace WindowsGame1
         {
             if (!Assets.IsLoading() && minSplashTime < 0)
             {
-                //Game1.instance.SetCena(MainMenu.instance = new MainMenu());
+                MyGame.instance.CenaAtual = MainMenu.instance = new MainMenu();
                 this.Hide();
             }
             else

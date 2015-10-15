@@ -1,2 +1,3 @@
 Content\hudFont.xnb
 Content\Splash.xnb
+Content\wood.xnb
