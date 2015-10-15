@@ -9,7 +9,7 @@ namespace WindowsGame1
     {
         public static MyGame instance;
         private Cena cenaAtual;
-        public string name = "lol, XNA e Forms";
+        public static string name = "Mastermind";
 
         protected override void LoadContent()
         {

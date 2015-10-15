@@ -10,6 +10,7 @@ namespace WindowsGame1
     class Tabuleiro : HUD
     {
         Filas[] filas = new Filas[10];
+        Filas sequencia;
 
         public Tabuleiro(Cena cena) : base(Assets.wood, cena, 1, 1, 0.5f, 0.5f)
         {
@@ -18,6 +19,7 @@ namespace WindowsGame1
                 filas[i] = new Filas(cena, i);
                 cena.RegistarAnimacao(filas[i], 1);
             }
+            sequencia = new Filas(cena, 11);
         }
 
         

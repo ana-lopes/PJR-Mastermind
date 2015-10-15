@@ -3,9 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1
 {
-    internal class BuracosDeCor : Animacao
+    internal class BuracosDeCor : HUD
     {
-        public BuracosDeCor(Texture2D textura, Vector2 posicao, Cena cena) : base(textura, posicao, cena)
+        public BuracosDeCor(Cena cena, float escalaX, float escalaY, float posicaoX, float posicaoY)
+            : base(Assets.buraco, cena, escalaX, escalaY, posicaoX, posicaoY)
         {
         }
     }

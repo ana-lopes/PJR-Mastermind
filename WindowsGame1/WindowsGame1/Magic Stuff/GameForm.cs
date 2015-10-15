@@ -30,5 +30,10 @@ namespace WindowsGame1
         {
             get { return splitContainer; }
         }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
     }
 }

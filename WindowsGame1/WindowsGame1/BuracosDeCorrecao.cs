@@ -5,8 +5,10 @@ namespace WindowsGame1
 {
     internal class BuracosDeCorrecao : HUD
     {
-        public BuracosDeCorrecao(Cena cena, float escalaX, float escalaY) : base(Assets.buraco, cena, escalaX, escalaY, 0, 0)
+        public BuracosDeCorrecao(Cena cena, float escalaX, float escalaY, float posicaoX, float posicaoY) : 
+            base(Assets.buraco, cena, escalaX, escalaY, posicaoX, posicaoY)
         {
+
         }
     }
 }
