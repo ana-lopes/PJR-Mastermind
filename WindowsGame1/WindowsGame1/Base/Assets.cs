@@ -12,12 +12,14 @@ namespace WindowsGame1
 
         private static bool loading = true;
         public static Texture2D wood;
+        public static Texture2D fila;
+        public static Texture2D buraco;
 
         public static void Load()
         {
-            //lista.Add(nave = MyGame.instance.content.Load<Texture2D>("Capturar"));
-
             lista.Add(wood = MyGame.instance.Content.Load<Texture2D>("wood"));
+            lista.Add(fila = MyGame.instance.Content.Load<Texture2D>("fila"));
+            lista.Add(buraco = MyGame.instance.Content.Load<Texture2D>("buraco"));
             loading = false;
         }
 

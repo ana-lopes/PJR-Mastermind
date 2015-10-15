@@ -14,7 +14,7 @@ namespace WindowsGame1
         protected override void LoadContent()
         {
             instance = this;
-            cenaAtual = SplashScene.instance = new SplashScene(4, 3);
+            cenaAtual = SplashScene.instance = new SplashScene(1, 3);
         }
 
         protected override void Update(TimeSpan delta)

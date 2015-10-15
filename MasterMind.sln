@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAForm", "WindowsGame1\WindowsGame1\XNAForm.csproj", "{749CD1C6-7EA8-424D-AC98-9E5A33946529}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind", "WindowsGame1\WindowsGame1\Mastermind.csproj", "{749CD1C6-7EA8-424D-AC98-9E5A33946529}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Content", "WindowsGame1\WindowsGame1Content\Content.contentproj", "{206AC444-4505-471A-91BD-B41C5700C3D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "WindowsGame1\WindowsGame1Content\Content.contentproj", "{206AC444-4505-471A-91BD-B41C5700C3D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

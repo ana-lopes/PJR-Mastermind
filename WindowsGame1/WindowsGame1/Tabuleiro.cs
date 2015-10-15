@@ -13,8 +13,11 @@ namespace WindowsGame1
 
         public Tabuleiro(Cena cena) : base(Assets.wood, cena, 1, 1, 0.5f, 0.5f)
         {
-            for(int i=0; i<10; i++)
-                filas[i] = new Filas();
+            for (int i = 0; i < 10; i++)
+            {
+                filas[i] = new Filas(cena, i);
+                cena.RegistarAnimacao(filas[i], 1);
+            }
         }
 
         

@@ -15,7 +15,7 @@ namespace WindowsGame1
         Color clearColor = Color.CornflowerBlue;
 
         private List<Update> updates, updatesRemover, updatesAdicionar;
-        private Dictionary<int, List<Animacao>> anim, animRemover, animAdicionar;
+        private SortedDictionary<int, List<Animacao>> anim, animRemover, animAdicionar;
 
         protected bool paused;
 
@@ -30,9 +30,9 @@ namespace WindowsGame1
             updates = new List<Update>();
             updatesRemover = new List<Update>();
             updatesAdicionar = new List<Update>();
-            anim = new Dictionary<int, List<Animacao>>();
-            animRemover = new Dictionary<int, List<Animacao>>();
-            animAdicionar = new Dictionary<int, List<Animacao>>();
+            anim = new SortedDictionary<int, List<Animacao>>();
+            animRemover = new SortedDictionary<int, List<Animacao>>();
+            animAdicionar = new SortedDictionary<int, List<Animacao>>();
             camaraAtual = new Camara(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
             inputController = new InputController(true, true, true);
             CriarCena();

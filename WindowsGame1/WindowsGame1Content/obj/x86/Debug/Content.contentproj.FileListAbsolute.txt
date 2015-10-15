@@ -1,3 +1,4 @@
 c:\users\toshiba\documents\visual studio 2013\Projects\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
 C:\Users\TOSHIBA\Documents\Visual Studio 2013\Projects\XNAForm\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1Content\obj\x86\Debug\Content.contentprojResolveAssemblyReference.cache
