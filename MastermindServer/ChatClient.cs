@@ -28,91 +28,44 @@ namespace MastermindServer
             this.nick = client.Client.RemoteEndPoint.ToString();
         }
 
+        public void SendMessage(byte[] buffer)
+        {
+            try
+            {
+                stream.WriteByte((byte)'M');
+                stream.Write(buffer, 0, buffer.Length);
+                stream.WriteByte((byte)'\n');
+            }
+            catch
+            {
+                Die();
+            }
+        }
+
         public void Run()
         {
             while (true)
             {
                 // Ler a mensagem que pode ser dividida por pacotes IP.
                 // Daí se ter convencionado que cada linha termina com newline.
-                byte[] buffer = new byte[1024];
-                string mensagem = "";
-                int readBytes;
                 try
                 {
-                    do
-                    {
-                        readBytes = stream.Read(buffer, 0, 1024);
-                        mensagem = mensagem +
-                            Encoding.ASCII.GetString(buffer, 0, readBytes);
-                    } while (!mensagem.Contains("\n"));
+                    string mensagem = ReadMessage();
 
                     // O processamento das mensagens recebidas depende do estado em que o 
                     // cliente está: antes ou depois de se ter autenticado.
                     if (authenticated)
                     {
-                        // Se está autenticado, recebe mensagens do tipo M. Extrai a mensagem
-                        // e coloca-a na queue do ChatServer para que este envie para todos os
-                        // clientes. 
-                        // Se a mensagem é desconhecida, então mata-se o cliente por não 
-                        // respeitar o protocolo.
-                        Console.WriteLine(nick + " autenticado");
-                        if (mensagem.StartsWith("M"))
+                        if (!DecodeMessage(mensagem))
                         {
-                            string msg = mensagem.Substring(1,
-                                          mensagem.IndexOfAny(
-                                        new char[] { '\n', '\r' }) - 1);
-                            msg = nick + ": " + msg;
-                            server.messageQueue.Enqueue(msg);
-                            Console.WriteLine(msg);
-                        }
-                        else if (mensagem.StartsWith("L") && !dead)
-                        {
-                            Console.WriteLine(nick + " logging out");
-                            Die();
-                        }
-                        else
-                        {
-                            Die();
                             break;
                         }
                     }
                     else
                     {
                         Console.WriteLine(nick + " não autenticado");
-                        // Se não está autenticado, só recebemos mensagens do tipo N, com
-                        // p nick desejado. Tentamos usar esse nick. Se estiver livre, retornamos
-                        // com mensagem de sucesso "O"
-                        // se o nick estiver em uso, retornamos com mensagem de erro "E0"
-                        // se a mensagem não estiver de acordo com o protocolo, matamos cliente.
-                        if (mensagem.StartsWith("N"))
+                        if (!TryRename(mensagem))
                         {
-                            string novoNick = mensagem.Substring(1,
-                                mensagem.IndexOfAny(
-                                    new char[] { '\n', '\r' }) - 1);
-                            if (server.Rename(
-                                client.Client.RemoteEndPoint.ToString(),
-                                novoNick))
-                            {
-                                // we are authenticated
-                                Console.WriteLine(novoNick + " ligou-se!");
-                                authenticated = true;
-                                this.nick = novoNick;
-                                stream.WriteByte((byte)'O');
-                                stream.WriteByte((byte)'\n');
-                                Console.WriteLine(nick + " foi autenticado");
-                                server.messageQueue.Enqueue(novoNick + " ligou-se!");
-                            }
-                            else
-                            {
-                                // nop, that nick is in use.
-                                stream.WriteByte((byte)'E');
-                                stream.WriteByte((byte)'0');
-                                stream.WriteByte((byte)'\n');
-                            }
-                        }
-                        else
-                        {
-                            Die();
                             break;
                         }
                     }
@@ -123,6 +76,92 @@ namespace MastermindServer
                     break;
                 }
             }
+        }
+
+        public string ReadMessage()
+        {
+            int readBytes;
+            string mensagem = "";
+            byte[] buffer = new byte[1024];
+            do
+            {
+                readBytes = stream.Read(buffer, 0, 1024);
+                mensagem += Encoding.ASCII.GetString(buffer, 0, readBytes);
+            } while (!mensagem.Contains("\n"));
+
+            return mensagem;
+        }
+
+        public bool DecodeMessage(string mensagem)
+        {
+            // Se está autenticado, recebe mensagens do tipo M. Extrai a mensagem
+            // e coloca-a na queue do ChatServer para que este envie para todos os
+            // clientes. 
+            // Se a mensagem é desconhecida, então mata-se o cliente por não 
+            // respeitar o protocolo.
+            Console.WriteLine(nick + " autenticado");
+            if (mensagem.StartsWith("M"))
+            {
+                string msg = mensagem.Substring(1,
+                              mensagem.IndexOfAny(
+                            new char[] { '\n', '\r' }) - 1);
+                msg = nick + ": " + msg;
+                server.messageQueue.Enqueue(msg);
+                Console.WriteLine(msg);
+                return true;
+            }
+            else if (mensagem.StartsWith("L") && !dead)
+            {
+                Console.WriteLine(nick + " logging out");
+                Die();
+                return true;
+            }
+            else
+            {
+                Die();
+                return false;
+            } 
+        }
+
+        public bool TryRename(string mensagem)
+        {
+            // Se não está autenticado, só recebemos mensagens do tipo N, com
+            // o nick desejado. Tentamos usar esse nick. Se estiver livre, retornamos
+            // com mensagem de sucesso "O"
+            // se o nick estiver em uso, retornamos com mensagem de erro "E0"
+            // se a mensagem não estiver de acordo com o protocolo, matamos cliente.
+            if (mensagem.StartsWith("N"))
+            {
+                string novoNick = mensagem.Substring(1,
+                    mensagem.IndexOfAny(
+                        new char[] { '\n', '\r' }) - 1);
+                if (server.Rename(
+                    client.Client.RemoteEndPoint.ToString(),
+                    novoNick))
+                {
+                    // we are authenticated
+                    Console.WriteLine(novoNick + " ligou-se!");
+                    authenticated = true;
+                    this.nick = novoNick;
+                    stream.WriteByte((byte)'O');
+                    stream.WriteByte((byte)'\n');
+                    Console.WriteLine(nick + " foi autenticado");
+                    server.messageQueue.Enqueue(novoNick + " ligou-se!");
+                }
+                else
+                {
+                    // nop, that nick is in use.
+                    stream.WriteByte((byte)'E');
+                    stream.WriteByte((byte)'0');
+                    stream.WriteByte((byte)'\n');
+                }
+                return true;
+            }
+            else
+            {
+                Die();
+                return false;
+            } 
         }
 
         public void Die()

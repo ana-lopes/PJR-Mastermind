@@ -1,0 +1,5 @@
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\bin\Debug\MastermindServer.exe.config
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\bin\Debug\MastermindServer.exe
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\bin\Debug\MastermindServer.pdb
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\obj\Debug\MastermindServer.exe
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\obj\Debug\MastermindServer.pdb

@@ -36,6 +36,17 @@ namespace MastermindServer
                     allThreadsBusy = false;
                     createMyThread();
                 }
+                // se temos mensagens para enviar, enviar uma...
+                if (messageQueue.Count > 0)
+                {
+                    // converter mensagem para bytes
+                    string msg = messageQueue.Dequeue();
+                    byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
+
+                    // para cada cliente, enviar-lhe mensagem
+                    foreach (var client in clients.Values.ToList())
+                        client.SendMessage(msgBuffer);
+                }
             }
         }
 
@@ -49,8 +60,7 @@ namespace MastermindServer
                 clients.Remove(oldName);
                 return true;
             }
-        }
-        
+        }        
 
         async void createMyThread()
         {
