@@ -35,5 +35,10 @@ namespace WindowsGame1
         {
 
         }
+
+        private void GameForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -33,13 +33,14 @@
             this.Send = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.Cheater = new System.Windows.Forms.Button();
             this.Accept = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Cyan = new System.Windows.Forms.Button();
+            this.Pink = new System.Windows.Forms.Button();
+            this.YellowBlack = new System.Windows.Forms.Button();
+            this.Green = new System.Windows.Forms.Button();
+            this.Blue = new System.Windows.Forms.Button();
+            this.RedWhite = new System.Windows.Forms.Button();
             this.myGame1 = new WindowsGame1.MyGame();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -87,13 +88,14 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.Cheater);
             this.splitContainer2.Panel2.Controls.Add(this.Accept);
-            this.splitContainer2.Panel2.Controls.Add(this.button6);
-            this.splitContainer2.Panel2.Controls.Add(this.button5);
-            this.splitContainer2.Panel2.Controls.Add(this.button4);
-            this.splitContainer2.Panel2.Controls.Add(this.button3);
-            this.splitContainer2.Panel2.Controls.Add(this.button2);
-            this.splitContainer2.Panel2.Controls.Add(this.button1);
+            this.splitContainer2.Panel2.Controls.Add(this.Cyan);
+            this.splitContainer2.Panel2.Controls.Add(this.Pink);
+            this.splitContainer2.Panel2.Controls.Add(this.YellowBlack);
+            this.splitContainer2.Panel2.Controls.Add(this.Green);
+            this.splitContainer2.Panel2.Controls.Add(this.Blue);
+            this.splitContainer2.Panel2.Controls.Add(this.RedWhite);
             this.splitContainer2.Size = new System.Drawing.Size(338, 573);
             this.splitContainer2.SplitterDistance = 389;
             this.splitContainer2.TabIndex = 0;
@@ -122,74 +124,84 @@
             this.listBox1.Size = new System.Drawing.Size(318, 329);
             this.listBox1.TabIndex = 0;
             // 
+            // Cheater
+            // 
+            this.Cheater.Location = new System.Drawing.Point(255, 14);
+            this.Cheater.Name = "Cheater";
+            this.Cheater.Size = new System.Drawing.Size(75, 75);
+            this.Cheater.TabIndex = 7;
+            this.Cheater.Text = "CHEATER!";
+            this.Cheater.UseVisualStyleBackColor = true;
+            // 
             // Accept
             // 
-            this.Accept.Location = new System.Drawing.Point(255, 59);
+            this.Accept.Location = new System.Drawing.Point(255, 95);
             this.Accept.Name = "Accept";
             this.Accept.Size = new System.Drawing.Size(75, 75);
             this.Accept.TabIndex = 6;
             this.Accept.Text = "Accept";
             this.Accept.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // Cyan
             // 
-            this.button6.Location = new System.Drawing.Point(174, 95);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 75);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
+            this.Cyan.BackColor = System.Drawing.Color.Aqua;
+            this.Cyan.Location = new System.Drawing.Point(174, 95);
+            this.Cyan.Name = "Cyan";
+            this.Cyan.Size = new System.Drawing.Size(75, 75);
+            this.Cyan.TabIndex = 5;
+            this.Cyan.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // Pink
             // 
-            this.button5.Location = new System.Drawing.Point(93, 95);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 75);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.Pink.BackColor = System.Drawing.Color.Fuchsia;
+            this.Pink.Location = new System.Drawing.Point(93, 95);
+            this.Pink.Name = "Pink";
+            this.Pink.Size = new System.Drawing.Size(75, 75);
+            this.Pink.TabIndex = 4;
+            this.Pink.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // YellowBlack
             // 
-            this.button4.Location = new System.Drawing.Point(12, 95);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 75);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.YellowBlack.BackColor = System.Drawing.Color.Yellow;
+            this.YellowBlack.Location = new System.Drawing.Point(12, 95);
+            this.YellowBlack.Name = "YellowBlack";
+            this.YellowBlack.Size = new System.Drawing.Size(75, 75);
+            this.YellowBlack.TabIndex = 3;
+            this.YellowBlack.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // Green
             // 
-            this.button3.Location = new System.Drawing.Point(174, 14);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 75);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Green.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.Green.Enabled = false;
+            this.Green.Location = new System.Drawing.Point(174, 14);
+            this.Green.Name = "Green";
+            this.Green.Size = new System.Drawing.Size(75, 75);
+            this.Green.TabIndex = 2;
+            this.Green.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // Blue
             // 
-            this.button2.Location = new System.Drawing.Point(93, 14);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 75);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Blue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.Blue.Location = new System.Drawing.Point(93, 14);
+            this.Blue.Name = "Blue";
+            this.Blue.Size = new System.Drawing.Size(75, 75);
+            this.Blue.TabIndex = 1;
+            this.Blue.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // RedWhite
             // 
-            this.button1.Location = new System.Drawing.Point(12, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 75);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.RedWhite.BackColor = System.Drawing.Color.Red;
+            this.RedWhite.Location = new System.Drawing.Point(12, 14);
+            this.RedWhite.Name = "RedWhite";
+            this.RedWhite.Size = new System.Drawing.Size(75, 75);
+            this.RedWhite.TabIndex = 0;
+            this.RedWhite.UseVisualStyleBackColor = false;
             // 
             // myGame1
             // 
-            this.myGame1.Location = new System.Drawing.Point(3, 3);
+            this.myGame1.Location = new System.Drawing.Point(4, 4);
             this.myGame1.Name = "myGame1";
-            this.myGame1.Size = new System.Drawing.Size(262, 567);
+            this.myGame1.Size = new System.Drawing.Size(261, 566);
             this.myGame1.TabIndex = 0;
             this.myGame1.Text = "myGame1";
             // 
@@ -202,6 +214,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GameForm";
             this.Text = "Mastermind";
+            this.Load += new System.EventHandler(this.GameForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -223,12 +236,13 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button Accept;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Cyan;
+        private System.Windows.Forms.Button Pink;
+        private System.Windows.Forms.Button YellowBlack;
+        private System.Windows.Forms.Button Green;
+        private System.Windows.Forms.Button Blue;
+        private System.Windows.Forms.Button RedWhite;
+        private System.Windows.Forms.Button Cheater;
         private MyGame myGame1;
     }
 }
