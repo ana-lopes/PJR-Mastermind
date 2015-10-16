@@ -10,6 +10,10 @@
 #region Using Statements
 using System;
 using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
 #endregion
 
 namespace WindowsGame1
@@ -19,11 +23,27 @@ namespace WindowsGame1
         static public GameForm instance;
         private SplitContainer splitContainer;
 
-        public GameForm()
+        public TcpClient client;
+        public NetworkStream stream;
+        private Queue<string> recievingMessages;
+        private Form form;
+        private bool closing;
+
+        public GameForm(TcpClient client, Form form)
         {
             instance = this;
             InitializeComponent();
             splitContainer = splitContainer1;
+
+            this.form = form;
+            this.client = client;
+            this.stream = client.GetStream();
+
+            //chat
+            this.recievingMessages = new Queue<string>();
+
+            Task thread = new Task(readData, recievingMessages);
+            thread.Start();
         }
 
         public SplitContainer SplitContainer
@@ -40,5 +60,34 @@ namespace WindowsGame1
         {
 
         }
+
+        private void readData<T>(T queue)
+        {
+            Queue<string> q = queue as Queue<string>;
+            
+            while(true)
+            {
+                string msg = "";
+                try
+                {
+                    do
+                    {
+                        byte[] buffer = new byte[1024];
+                        int nrBytes = stream.Read(buffer, 0, 1024);
+                        msg += Encoding.ASCII.GetString(buffer, 0, 1024);
+                    } while (!msg.StartsWith("M"));
+
+                    if (msg.StartsWith("M"))
+                    {
+                        q.Enqueue(msg.Substring(1, msg.Length - 2));
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
     }
 }

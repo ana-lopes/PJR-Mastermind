@@ -85,6 +85,12 @@
     <Compile Include="BuracosDeCor.cs" />
     <Compile Include="BuracosDeCorrecao.cs" />
     <Compile Include="Filas.cs" />
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Magic Stuff\Game.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Magic Stuff\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
