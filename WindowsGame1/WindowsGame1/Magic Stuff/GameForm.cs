@@ -61,6 +61,7 @@ namespace WindowsGame1
 
         }
 
+        //redes
         private void readData<T>(T queue)
         {
             Queue<string> q = queue as Queue<string>;
