@@ -33,14 +33,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NickTextBox = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.portTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // IPTextBox
             // 
             this.IPTextBox.Location = new System.Drawing.Point(106, 12);
             this.IPTextBox.Name = "IPTextBox";
-            this.IPTextBox.Size = new System.Drawing.Size(188, 22);
+            this.IPTextBox.Size = new System.Drawing.Size(128, 22);
             this.IPTextBox.TabIndex = 0;
+            this.IPTextBox.Text = "localhost";
             // 
             // label1
             // 
@@ -64,24 +67,44 @@
             // 
             this.NickTextBox.Location = new System.Drawing.Point(106, 42);
             this.NickTextBox.Name = "NickTextBox";
-            this.NickTextBox.Size = new System.Drawing.Size(188, 22);
+            this.NickTextBox.Size = new System.Drawing.Size(294, 22);
             this.NickTextBox.TabIndex = 3;
+            this.NickTextBox.Text = "poop";
             // 
             // loginButton
             // 
             this.loginButton.Location = new System.Drawing.Point(12, 79);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(282, 37);
+            this.loginButton.Size = new System.Drawing.Size(388, 37);
             this.loginButton.TabIndex = 4;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(252, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Port: ";
+            // 
+            // portTextBox
+            // 
+            this.portTextBox.Location = new System.Drawing.Point(300, 12);
+            this.portTextBox.Name = "portTextBox";
+            this.portTextBox.Size = new System.Drawing.Size(100, 22);
+            this.portTextBox.TabIndex = 6;
+            this.portTextBox.Text = "8888";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 129);
+            this.ClientSize = new System.Drawing.Size(414, 129);
+            this.Controls.Add(this.portTextBox);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.NickTextBox);
             this.Controls.Add(this.label2);
@@ -101,5 +124,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox NickTextBox;
         private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox portTextBox;
     }
 }

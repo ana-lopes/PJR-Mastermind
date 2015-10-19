@@ -61,6 +61,20 @@ namespace WindowsGame1
 
         }
 
+        private void Send_Click(object sender, EventArgs e)
+        {
+            string msg = inputText.Text;
+
+            //enviar
+            byte[] buf = Encoding.ASCII.GetBytes(msg);
+            stream.WriteByte((byte)'M');
+            stream.Write(buf, 0, buf.Length);
+            stream.WriteByte((byte)'\n');
+
+            //limpar textbox
+            inputText.Text = "";
+        }
+
         //redes
         private void readData<T>(T queue)
         {
@@ -75,8 +89,8 @@ namespace WindowsGame1
                     {
                         byte[] buffer = new byte[1024];
                         int nrBytes = stream.Read(buffer, 0, 1024);
-                        msg += Encoding.ASCII.GetString(buffer, 0, 1024);
-                    } while (!msg.StartsWith("M"));
+                        msg += Encoding.ASCII.GetString(buffer, 0, nrBytes);
+                    } while (!msg.Contains("\n"));
 
                     if (msg.StartsWith("M"))
                     {
@@ -90,5 +104,27 @@ namespace WindowsGame1
             }
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            while (recievingMessages.Count > 0)
+            {
+                outputChat.Items.Add(recievingMessages.Dequeue());
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            if(!closing)
+            {
+                //closing = true;
+                stream.WriteByte((byte)'L');
+                stream.WriteByte((byte)'\n');
+
+                this.Hide();
+                form.Show();
+                this.Close();                
+            }
+            base.OnClosed(e);
+        }
     }
 }
