@@ -35,3 +35,4 @@ C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Re
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.Login.resources
