@@ -96,12 +96,5 @@ namespace WindowsGame1
                     (int)(frameSize.Y * escala.Y) * MyGame.instance.GraphicsDevice.Viewport.Height / cena.camaraAtual.Height);
             return rec.Contains(point);
         }
-
-        public bool ContainsCursor()
-        {
-            return ContainsPointOnScreen(new Point(
-                Mouse.GetState().X - GameForm.instance.Location.X - GameForm.instance.SplitContainer.Panel1.Width,
-                Mouse.GetState().Y - GameForm.instance.Location.Y));
-        }
     }
 }

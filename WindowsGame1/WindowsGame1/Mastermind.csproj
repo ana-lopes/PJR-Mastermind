@@ -79,9 +79,6 @@
     <Compile Include="Base\Assets.cs" />
     <Compile Include="Base\Camara.cs" />
     <Compile Include="Base\Cena.cs" />
-    <Compile Include="Base\HUD.cs" />
-    <Compile Include="Base\InputController.cs" />
-    <Compile Include="Base\InputListener.cs" />
     <Compile Include="BuracosDeCor.cs" />
     <Compile Include="BuracosDeCorrecao.cs" />
     <Compile Include="Filas.cs" />

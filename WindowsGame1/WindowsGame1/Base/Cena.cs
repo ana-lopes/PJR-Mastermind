@@ -21,8 +21,6 @@ namespace WindowsGame1
 
         public Camara camaraAtual;
 
-        InputController inputController;
-
         public Cena()
         {
             this.spriteBatch = MyGame.instance.SpriteBatch;
@@ -34,7 +32,6 @@ namespace WindowsGame1
             animRemover = new SortedDictionary<int, List<Animacao>>();
             animAdicionar = new SortedDictionary<int, List<Animacao>>();
             camaraAtual = new Camara(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
-            inputController = new InputController(true, true, true);
             CriarCena();
         }
 
@@ -46,7 +43,6 @@ namespace WindowsGame1
 
         public void Update(float delta)
         {            
-            inputController.Update();
             Atuar(delta);
             if (!paused)
             {

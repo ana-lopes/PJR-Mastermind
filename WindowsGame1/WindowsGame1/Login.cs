@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace WindowsGame1
 {
     public partial class Login : Form
-    {
+    { 
         TcpClient client;
         NetworkStream stream;
 
@@ -47,7 +47,7 @@ namespace WindowsGame1
             stream = client.GetStream();
 
             //enviar pedido de autenticação (nome)
-            stream.WriteByte((byte)'N');
+            stream.WriteByte(GameForm.renameByte);
             byte[] bfr = Encoding.ASCII.GetBytes(name);
             stream.Write(bfr, 0, bfr.Length);
             stream.WriteByte((byte)'\n');
@@ -60,15 +60,19 @@ namespace WindowsGame1
                 msg += Encoding.ASCII.GetString(bfr, 0, nrBytes);
             } while (!msg.Contains("\n"));
 
-            if(msg.StartsWith("O"))
+            if(msg.StartsWith(GameForm.loginAprovedString))
             {
                 new GameForm(client, this).Show();
                 this.Hide();
             }
-
             else
-            {
-                MessageBox.Show("Server dont like you! " + msg);
+            { 
+                if (msg.StartsWith(GameForm.errorString + "0"))
+                    MessageBox.Show("That name is already in use!");
+                else if (msg.StartsWith(GameForm.errorString + "1"))
+                    MessageBox.Show("Server Full!");                    
+                else
+                    MessageBox.Show("Server dont like you!");
                 stream.Close();
                 client.Close();
             }

@@ -13,6 +13,8 @@ namespace MastermindServer
         public static Dictionary<string, ChatClient> clients;
         TcpListener listener;
         public Queue<string> messageQueue; // mensagens a enviar
+        public const int maxNumberPlayers = 2; 
+        string nameP1 = "", nameP2 = "";
         bool allThreadsBusy = true;
 
         public ChatServer(int port)
@@ -31,7 +33,7 @@ namespace MastermindServer
         {
             while (true)
             {
-                if (allThreadsBusy)
+                if (allThreadsBusy && clients.Count<maxNumberPlayers)
                 {
                     allThreadsBusy = false;
                     createMyThread();
@@ -50,6 +52,25 @@ namespace MastermindServer
             }
         }
 
+        public void StartGame()
+        {
+            int player = 1;
+            nameP1 = nameP2 = "";
+            foreach (KeyValuePair<string, ChatClient> pair in clients)
+            {                
+                pair.Value.Start(player == 1 ? (byte)'1' : (byte)'2');
+                if (nameP1 == "")
+                    nameP1 = pair.Key;
+                else
+                    nameP2 = pair.Key;
+                Console.WriteLine("Start send to " + pair.Key);
+                player++;
+            }
+            messageQueue.Enqueue(nameP1 + " is setting the sequence. " + nameP2 + " please stand by");
+            clients[nameP1].Play();
+            clients[nameP2].StopPlaying();
+        }
+
         public bool Rename(string oldName, string newName)
         {
             if (clients.ContainsKey(newName))
@@ -64,6 +85,7 @@ namespace MastermindServer
 
         async void createMyThread()
         {
+            Console.WriteLine("Awaiting");
             TcpClient client =
                 await listener.AcceptTcpClientAsync();
             allThreadsBusy = true;
@@ -75,6 +97,11 @@ namespace MastermindServer
             clients.Add(client.Client.RemoteEndPoint.ToString(),
                 chatClient);
             chatClient.Run();
+        }
+
+        public int NumberClients
+        {
+            get { return clients.Count; }
         }
     }
 }

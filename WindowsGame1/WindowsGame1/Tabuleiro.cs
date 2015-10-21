@@ -7,12 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1
 {
-    class Tabuleiro : HUD
+    class Tabuleiro : Animacao
     {
         Filas[] filas = new Filas[10];
         Filas sequencia;
 
-        public Tabuleiro(Cena cena) : base(Assets.wood, cena, 1, 1, 0.5f, 0.5f)
+        public Tabuleiro(Cena cena) : base(Assets.wood, new Vector2(0.5f * MyGame.instance.GraphicsDevice.Viewport.Width, 
+            0.5f * MyGame.instance.GraphicsDevice.Viewport.Height), cena)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -20,6 +21,8 @@ namespace WindowsGame1
                 cena.RegistarAnimacao(filas[i], 1);
             }
             sequencia = new Filas(cena, 11);
+            escala = new Vector2(MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
+                MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
         }
 
         

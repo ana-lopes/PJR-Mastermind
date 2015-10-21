@@ -3,11 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1
 {
-    internal class BuracosDeCor : HUD
+    internal class BuracosDeCor : Animacao
     {
-        public BuracosDeCor(Cena cena, float escalaX, float escalaY, float posicaoX, float posicaoY)
-            : base(Assets.buraco, cena, escalaX, escalaY, posicaoX, posicaoY)
+        static float escalaX = 3 / 20f;
+        static float escalaY = 1 / 13f;
+
+        public BuracosDeCor(Cena cena, float posicaoX, float posicaoY)
+            : base(Assets.buraco, new Vector2(posicaoX * MyGame.instance.GraphicsDevice.Viewport.Width, 
+                posicaoY * MyGame.instance.GraphicsDevice.Viewport.Height), cena)
         {
+            escala = new Vector2(escalaX * MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
+                escalaY * MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
         }
     }
 }
