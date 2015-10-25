@@ -143,11 +143,15 @@ namespace MastermindServer
                 Console.WriteLine(msg);
                 return true;
             }
+
             else if (mensagem.StartsWith(logoutString) && !dead)
             {
+                string msg = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n', '\r' }) - 1);
+                msg = nick + " logging out. " + msg;               
+                server.messageQueue.Enqueue(msg);
+
                 Console.WriteLine(nick + " logging out");
 
-                dfgdfgdg //mandar notificacao
                 Die();
                 return true;
             }

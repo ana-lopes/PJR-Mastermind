@@ -24,11 +24,11 @@ namespace WindowsGame1
         private void loginButton_Click(object sender, EventArgs e)
         {
             string host = IPTextBox.Text;
-            int port = int.Parse(portTextBox.Text); //TODO: try parse direito cuz errors no if 
+            int port; //TODO: try parse direito cuz errors no if 
             string name = NickTextBox.Text;
             int nrBytes = 0;
 
-            if(host == "" || name == "" || port == 0)
+            if(host == "" || name == "" || portTextBox.Text == "0" || !Int32.TryParse(portTextBox.Text, out port))
             {
                 MessageBox.Show("Please fill Host and/or Username.");
                 return;
