@@ -41,6 +41,7 @@
             this.Cyan = new System.Windows.Forms.Button();
             this.Accept = new System.Windows.Forms.Button();
             this.RedWhite = new System.Windows.Forms.Button();
+            this.myGame2 = new WindowsGame1.MyGame();
             this.SuspendLayout();
             // 
             // timer1
@@ -161,11 +162,20 @@
             this.RedWhite.UseVisualStyleBackColor = false;
             this.RedWhite.Click += new System.EventHandler(this.RedWhite_Click);
             // 
+            // myGame2
+            // 
+            this.myGame2.Location = new System.Drawing.Point(337, 12);
+            this.myGame2.Name = "myGame2";
+            this.myGame2.Size = new System.Drawing.Size(261, 549);
+            this.myGame2.TabIndex = 19;
+            this.myGame2.Text = "myGame2";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 573);
+            this.Controls.Add(this.myGame2);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.CheaterAutoCorrect);
             this.Controls.Add(this.inputText);
@@ -201,6 +211,7 @@
         private System.Windows.Forms.Button Accept;
         private System.Windows.Forms.Button RedWhite;
         private MyGame myGame1;
+        private MyGame myGame2;
     }
 }
 

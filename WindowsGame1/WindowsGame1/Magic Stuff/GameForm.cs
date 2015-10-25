@@ -22,19 +22,20 @@ namespace WindowsGame1
     enum PlayerType { Challenger, Challenged}
     public partial class GameForm : Form
     {
-        public static byte messageByte = (byte)'M', renameByte = (byte)'N';
+        public static byte messageByte = (byte)'M', renameByte = (byte)'N', logoutByte = (byte)'L';
         public static string startString = "S", playString = "P", stopPlayingString = "B";
         public static string messageString = "M", loginAprovedString = "O", errorString = "E";
 
         static public GameForm instance;
 
         public TcpClient client;
-        int jogada = 1;
+        int jogada;
         PlayerType playerType;
         public NetworkStream stream;
         private Queue<string> recievingMessages;
         private Queue<Action> actions;
         private Form form;
+        private string msg;
 
         public GameForm(TcpClient client, Form form)
         {
@@ -44,6 +45,8 @@ namespace WindowsGame1
             this.form = form;
             this.client = client;
             this.stream = client.GetStream();
+            jogada = 0;
+            msg = "";
 
             //chat
             this.recievingMessages = new Queue<string>();
@@ -60,24 +63,24 @@ namespace WindowsGame1
         {
             string msg = inputText.Text;
 
-            //enviar
-            byte[] buf = Encoding.ASCII.GetBytes(msg);
-            stream.WriteByte((byte)messageByte);
-            stream.Write(buf, 0, buf.Length);
-            stream.WriteByte((byte)'\n');
+            if (msg != "")
+            {
+                //enviar
+                byte[] buf = Encoding.ASCII.GetBytes(msg);
+                stream.WriteByte((byte)messageByte);
+                stream.Write(buf, 0, buf.Length);
+                stream.WriteByte((byte)'\n');
 
-            //limpar textbox
-            inputText.Text = "";
+                //limpar textbox
+                inputText.Text = "";
+            }
         }
 
         //redes
         private void readData<T>(T queue)
-        {
-            /*Queue<string> q = queue as Queue<string>;*/
-            
+        {            
             while(true)
             {
-                string msg = "";
                 try
                 {
                     do
@@ -87,7 +90,7 @@ namespace WindowsGame1
                         msg += Encoding.ASCII.GetString(buffer, 0, nrBytes);
                     } while (!msg.Contains("\n"));
 
-                    DecodeMessage(msg);
+                    DecodeMessage();
                 }
                 catch (Exception e)
                 {
@@ -122,13 +125,15 @@ namespace WindowsGame1
 
         private void Play()
         {
+            jogada++;
+            if (jogada != 1)
+                CheaterAutoCorrect.Enabled = true;
             RedWhite.Enabled = true;
             YellowBlack.Enabled = true;
             Blue.Enabled = true;
             Pink.Enabled = true;
             Green.Enabled = true;
             Cyan.Enabled = true;
-            CheaterAutoCorrect.Enabled = true;
             Accept.Enabled = true;
         }
 
@@ -144,7 +149,7 @@ namespace WindowsGame1
             Accept.Enabled = false;
         }
 
-        public void DecodeMessage(string msg)
+        public void DecodeMessage()
         {
             string msg2 = msg.Substring(0, msg.IndexOfAny(new char[] { '\n' }) + 1);
 
@@ -173,7 +178,11 @@ namespace WindowsGame1
                 actions.Enqueue(StopPlaying);
 
             if (msg.Length != msg2.Length)
-                DecodeMessage(msg.Substring(msg.IndexOfAny(new char[] {'\n' }) + 1, msg.Length - msg2.Length));
+            {
+                msg = msg.Substring(msg.IndexOfAny(new char[] { '\n' }) + 1, msg.Length - msg2.Length);
+            }
+            else
+                msg = "";
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -189,13 +198,13 @@ namespace WindowsGame1
 
         protected override void OnClosed(EventArgs e)
         {
-            stream.WriteByte((byte)'L');
+            stream.WriteByte(logoutByte);
+            stream.WriteByte((byte)'\n');
             
             this.Hide();
-            form.Show();
-            this.Close();    
 
             base.OnClosed(e);
+            form.Show();
         }
 
         private void RedWhite_Click(object sender, EventArgs e)

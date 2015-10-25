@@ -30,6 +30,7 @@ namespace MastermindServer
             this.stream = client.GetStream();
             // Inicialmente o nosso nick é o nosso IP e porta
             this.nick = client.Client.RemoteEndPoint.ToString();
+            dead = false;
         }
 
         public void SendMessage(byte[] buffer)
@@ -145,6 +146,8 @@ namespace MastermindServer
             else if (mensagem.StartsWith(logoutString) && !dead)
             {
                 Console.WriteLine(nick + " logging out");
+
+                dfgdfgdg //mandar notificacao
                 Die();
                 return true;
             }
@@ -170,11 +173,7 @@ namespace MastermindServer
             {
                 // we are authenticated
                 Console.WriteLine(novoNick + " ligou-se!");
-                if (authenticated)
-                {
-
-                }
-                else
+                if (!authenticated)
                 {
                     authenticated = true;
                     this.nick = novoNick;
@@ -228,7 +227,7 @@ namespace MastermindServer
             {
                 Console.WriteLine(nick + " desligou-se");
                 server.messageQueue.Enqueue(nick + " desligou-se!");
-                bool dead = true;
+                dead = true;
             }
         }
 
