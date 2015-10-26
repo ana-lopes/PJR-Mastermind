@@ -75,9 +75,8 @@ namespace MastermindServer
                         }
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-                    Console.WriteLine(e);
                     Die();
                     break;
                 }
@@ -136,49 +135,19 @@ namespace MastermindServer
             // Se a mensagem é desconhecida, então mata-se o cliente por não 
             // respeitar o protocolo.
             Console.WriteLine(nick + " autenticado");
-
             if (mensagem.StartsWith(messageString))
             {
                 string msg = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n', '\r' }) - 1);
-
-                //rename nick 
-                if (mensagem.StartsWith(messageString + "/rename"))
-                {
-                    string msg1 = msg.Substring(8, msg.Length - 8);
-                    string oldname = nick;
-
-                    if (server.Rename(nick, msg1))
-                    {
-                        nick = msg1;
-                        msg1 = oldname + " changed their name to " + nick;
-                        server.messageQueue.Enqueue(msg1);
-
-                        Console.WriteLine(msg1);
-                    }
-
-                    else
-                    {
-                        msg1 = nick + " can't change name to " + msg1 + " because it's already in use. Try again.";
-                        server.messageQueue.Enqueue(msg1);
-
-                        Console.WriteLine(msg1);
-                    }
-
-                }
-                //if plain message
-                else
-                {
-                    msg = nick + ": " + msg;
-                    server.messageQueue.Enqueue(msg);
-                    Console.WriteLine(msg);
-                }                
-                
+                msg = nick + ": " + msg;
+                server.messageQueue.Enqueue(msg);
+                Console.WriteLine(msg);
                 return true;
             }
 
             else if (mensagem.StartsWith(logoutString) && !dead)
             {
-                string msg = nick + " logging out. ";               
+                string msg = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n', '\r' }) - 1);
+                msg = nick + " logging out. " + msg;               
                 server.messageQueue.Enqueue(msg);
 
                 Console.WriteLine(nick + " logging out");
@@ -186,7 +155,6 @@ namespace MastermindServer
                 Die();
                 return true;
             }
-
             else
             {
                 Die();
