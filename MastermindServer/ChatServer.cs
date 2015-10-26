@@ -66,7 +66,7 @@ namespace MastermindServer
                 Console.WriteLine("Start send to " + pair.Key);
                 player++;
             }
-            messageQueue.Enqueue(nameP1 + " is setting the sequence. " + nameP2 + " please stand by\n");
+            messageQueue.Enqueue(nameP1 + " is setting the sequence. " + nameP2 + " please stand by");
             clients[nameP1].Play();
             clients[nameP2].StopPlaying();
         }

@@ -79,8 +79,8 @@
     <Compile Include="Base\Assets.cs" />
     <Compile Include="Base\Camara.cs" />
     <Compile Include="Base\Cena.cs" />
-    <Compile Include="BuracosDeCor.cs" />
-    <Compile Include="BuracosDeCorrecao.cs" />
+    <Compile Include="BuracoDeCor.cs" />
+    <Compile Include="BuracoDeCorrecao.cs" />
     <Compile Include="Filas.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>

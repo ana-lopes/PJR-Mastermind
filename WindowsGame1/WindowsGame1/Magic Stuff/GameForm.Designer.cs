@@ -42,6 +42,7 @@
             this.Accept = new System.Windows.Forms.Button();
             this.RedWhite = new System.Windows.Forms.Button();
             this.myGame2 = new WindowsGame1.MyGame();
+            this.Undo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // timer1
@@ -164,17 +165,29 @@
             // 
             // myGame2
             // 
-            this.myGame2.Location = new System.Drawing.Point(337, 12);
+            this.myGame2.Location = new System.Drawing.Point(417, 12);
             this.myGame2.Name = "myGame2";
             this.myGame2.Size = new System.Drawing.Size(261, 549);
             this.myGame2.TabIndex = 19;
             this.myGame2.Text = "myGame2";
             // 
+            // Undo
+            // 
+            this.Undo.Enabled = false;
+            this.Undo.Location = new System.Drawing.Point(336, 402);
+            this.Undo.Name = "Undo";
+            this.Undo.Size = new System.Drawing.Size(75, 75);
+            this.Undo.TabIndex = 20;
+            this.Undo.Text = "Undo";
+            this.Undo.UseVisualStyleBackColor = true;
+            this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 573);
+            this.ClientSize = new System.Drawing.Size(690, 573);
+            this.Controls.Add(this.Undo);
             this.Controls.Add(this.myGame2);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.CheaterAutoCorrect);
@@ -210,8 +223,8 @@
         private System.Windows.Forms.Button Cyan;
         private System.Windows.Forms.Button Accept;
         private System.Windows.Forms.Button RedWhite;
-        private MyGame myGame1;
         private MyGame myGame2;
+        private System.Windows.Forms.Button Undo;
     }
 }
 

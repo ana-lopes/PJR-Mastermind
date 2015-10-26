@@ -9,12 +9,14 @@ namespace WindowsGame1
     {
         public static MyGame instance;
         private Cena cenaAtual;
+        public bool gaming;
+        public int player;
         public static string name = "Mastermind";
 
         protected override void LoadContent()
         {
             instance = this;
-            cenaAtual = SplashScene.instance = new SplashScene(1, 3);
+            cenaAtual = SplashScene.instance = new SplashScene();
         }
 
         protected override void Update(TimeSpan delta)
@@ -35,6 +37,18 @@ namespace WindowsGame1
                 cenaAtual = value;
                 cenaAtual.Show();
             }
+        }
+
+        public void Start1()
+        {
+            gaming = true;
+            this.player = 1;
+        }
+
+        public void Start2()
+        {
+            gaming = true;
+            this.player = 2;
         }
     }
 }

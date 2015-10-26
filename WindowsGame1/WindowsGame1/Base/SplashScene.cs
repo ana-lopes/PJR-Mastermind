@@ -14,13 +14,11 @@ namespace WindowsGame1
         private Texture2D splashTexture;
         private Animacao splash;
         private Thread thread;
-        private float minSplashTime, splashAnimTime;
 
-        public SplashScene(float minSplashTime, float splashAnimTime)
+        public SplashScene()
             : base()
         {
-            this.minSplashTime = minSplashTime;
-            this.splashAnimTime = splashAnimTime;
+
         }
 
         protected override void CriarCena()
@@ -36,18 +34,10 @@ namespace WindowsGame1
 
         protected override void Atuar(float delta)
         {
-            if (!Assets.IsLoading() && minSplashTime < 0)
+            if (!Assets.IsLoading() && MyGame.instance.gaming)
             {
                 MyGame.instance.CenaAtual = MainMenu.instance = new MainMenu();
                 this.Hide();
-            }
-            else
-            {
-                if (splashAnimTime > 0)
-                    splashAnimTime -= delta;
-                else
-                    paused = true;
-                minSplashTime -= delta;
             }
         }
 

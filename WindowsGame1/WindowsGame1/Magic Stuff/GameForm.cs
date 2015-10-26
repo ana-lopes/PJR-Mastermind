@@ -50,23 +50,23 @@ namespace WindowsGame1
 
             //chat
             this.recievingMessages = new Queue<string>();
+        }
+
+        private void GameForm_Load(object sender, EventArgs e)
+        {
             actions = new Queue<Action>();
             Task thread = new Task(readData, recievingMessages);
             thread.Start();
         }
 
-        private void GameForm_Load(object sender, EventArgs e)
-        {
-        }
-
         private void Send_Click(object sender, EventArgs e)
         {
-            string msg = inputText.Text;
+            string text = inputText.Text;
 
-            if (msg != "")
+            if (text != "")
             {
                 //enviar
-                byte[] buf = Encoding.ASCII.GetBytes(msg);
+                byte[] buf = Encoding.ASCII.GetBytes(text);
                 stream.WriteByte((byte)messageByte);
                 stream.Write(buf, 0, buf.Length);
                 stream.WriteByte((byte)'\n');
@@ -74,6 +74,17 @@ namespace WindowsGame1
                 //limpar textbox
                 inputText.Text = "";
             }
+        }
+        
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            while (recievingMessages.Count > 0)
+            {
+                outputChat.Items.Add(recievingMessages.Dequeue());
+            }
+
+            while (actions.Count > 0)
+                actions.Dequeue()();
         }
 
         //redes
@@ -85,9 +96,12 @@ namespace WindowsGame1
                 {
                     do
                     {
-                        byte[] buffer = new byte[1024];
-                        int nrBytes = stream.Read(buffer, 0, 1024);
-                        msg += Encoding.ASCII.GetString(buffer, 0, nrBytes);
+                        if (!msg.Contains("\n"))
+                        {
+                            byte[] buffer = new byte[1024];
+                            int nrBytes = stream.Read(buffer, 0, 1024);
+                            msg += Encoding.ASCII.GetString(buffer, 0, nrBytes);
+                        }
                     } while (!msg.Contains("\n"));
 
                     DecodeMessage();
@@ -97,6 +111,44 @@ namespace WindowsGame1
                     MessageBox.Show("ERROR while trying to read data: \n" + e.ToString());
                 }
             }
+        }
+
+        public void DecodeMessage()
+        {
+            string msg2 = msg.Substring(0, msg.IndexOfAny(new char[] { '\n' }) + 1);
+
+            if (msg2.StartsWith(messageString))
+            {
+                recievingMessages.Enqueue(msg2.Substring(1, msg2.Length - 2));
+            }
+            else if (msg2.StartsWith(startString))
+            {
+                if (msg2.StartsWith(startString + "1"))
+                {
+                    playerType = PlayerType.Challenger;
+                    actions.Enqueue(Layout2);
+                    actions.Enqueue(MyGame.instance.Start1);
+                }
+                else if (msg2.StartsWith(startString + "2"))
+                {
+                    playerType = PlayerType.Challenged;
+                    actions.Enqueue(Layout2);
+                    actions.Enqueue(MyGame.instance.Start2);
+                }
+                else
+                    MessageBox.Show("ERROR while trying to read data");
+            }
+            else if (msg2.StartsWith(playString))
+                actions.Enqueue(Play);
+            else if (msg2.StartsWith(stopPlayingString))
+                actions.Enqueue(StopPlaying);
+
+            if (msg.Length != msg2.Length)
+            {
+                msg = msg.Substring(msg.IndexOfAny(new char[] { '\n' }) + 1, msg.Length - msg2.Length);
+            }
+            else
+                msg = "";
         }
 
         private void Layout1() //challenger
@@ -135,6 +187,7 @@ namespace WindowsGame1
             Green.Enabled = true;
             Cyan.Enabled = true;
             Accept.Enabled = true;
+            Undo.Enabled = true;
         }
 
         private void StopPlaying()
@@ -147,64 +200,7 @@ namespace WindowsGame1
             Cyan.Enabled = false;
             CheaterAutoCorrect.Enabled = false;
             Accept.Enabled = false;
-        }
-
-        public void DecodeMessage()
-        {
-            string msg2 = msg.Substring(0, msg.IndexOfAny(new char[] { '\n' }) + 1);
-
-            if (msg2.StartsWith(messageString))
-            {
-                recievingMessages.Enqueue(msg2.Substring(1, msg2.Length - 2));
-            }
-            else if (msg2.StartsWith(startString))
-            {
-                if (msg2.StartsWith(startString + "1"))
-                {
-                    playerType = PlayerType.Challenger;
-                    actions.Enqueue(Layout2);
-                }
-                else if (msg2.StartsWith(startString + "2"))
-                {
-                    playerType = PlayerType.Challenged;
-                    actions.Enqueue(Layout2);
-                }
-                else
-                    MessageBox.Show("ERROR while trying to read data");
-            }
-            else if (msg2.StartsWith(playString))
-                actions.Enqueue(Play);
-            else if (msg2.StartsWith(stopPlayingString))
-                actions.Enqueue(StopPlaying);
-
-            if (msg.Length != msg2.Length)
-            {
-                msg = msg.Substring(msg.IndexOfAny(new char[] { '\n' }) + 1, msg.Length - msg2.Length);
-            }
-            else
-                msg = "";
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            while (recievingMessages.Count > 0)
-            {
-                outputChat.Items.Add(recievingMessages.Dequeue());
-            }
-
-            while (actions.Count > 0)
-                actions.Dequeue()();
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            stream.WriteByte(logoutByte);
-            stream.WriteByte((byte)'\n');
-            
-            this.Hide();
-
-            base.OnClosed(e);
-            form.Show();
+            Undo.Enabled = false;
         }
 
         private void RedWhite_Click(object sender, EventArgs e)
@@ -253,5 +249,22 @@ namespace WindowsGame1
         {
 
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            stream.WriteByte(logoutByte);
+            stream.WriteByte((byte)'\n');
+
+            this.Hide();
+
+            base.OnClosed(e);
+            form.Show();
+        }
+
+        private void Undo_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
