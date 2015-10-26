@@ -10,7 +10,7 @@ namespace WindowsGame1
     class Tabuleiro : Animacao
     {
         Fila[] filas = new Fila[10];
-        Fila sequencia;
+        public Fila sequencia;
 
         public Tabuleiro(Cena cena) : base(Assets.wood, new Vector2(0.5f * MyGame.instance.GraphicsDevice.Viewport.Width, 
             0.5f * MyGame.instance.GraphicsDevice.Viewport.Height), cena)

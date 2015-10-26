@@ -155,10 +155,10 @@ namespace WindowsGame1
         {            
             RedWhite.BackColor = Color.White;
             YellowBlack.BackColor = Color.Black;
-            Blue.BackColor = Color.Gray;
-            Pink.BackColor = Color.Gray;
-            Green.BackColor = Color.Gray;
-            Cyan.BackColor = Color.Gray;
+            Blue.Visible = false;
+            Pink.Visible = false;
+            Green.Visible = false;
+            Cyan.Visible = false;
             
             CheaterAutoCorrect.Text = "AutoCorrect";
         }
@@ -209,35 +209,64 @@ namespace WindowsGame1
             {
                 if (jogada == 1)
                 {
-
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Red);
                 }
             }
-
         }
 
         private void Blue_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Blue);
+                }
+            }
         }
 
         private void Green_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Green);
+                }
+            }
         }
 
         private void YellowBlack_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Yellow);
+                }
+            }
         }
 
         private void Pink_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Pink);
+                }
+            }
         }
 
         private void Cyan_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.PorCor(Microsoft.Xna.Framework.Color.Cyan);
+                }
+            }
         }
 
         private void CheaterAutoCorrect_Click(object sender, EventArgs e)
@@ -247,7 +276,14 @@ namespace WindowsGame1
 
         private void Accept_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    //mandar sequencia ao servidor
+                    Layout1();
+                }
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -263,7 +299,13 @@ namespace WindowsGame1
 
         private void Undo_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                if (jogada == 1)
+                {
+                    MainMenu.instance.tabuleiro.sequencia.Tirar();
+                }
+            }
         }
 
     }

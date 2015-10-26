@@ -21,6 +21,7 @@ namespace WindowsGame1
         protected int colunas, linhas;
         protected Vector2 frameSize, currentFrame;
         protected float frameDuration, time;
+        public Color color = Color.White;
         private bool updatable;
 
         public Animacao(Texture2D textura, Vector2 posicao, Cena cena) : this(textura, posicao, 1, 1, 0, cena)
@@ -84,7 +85,7 @@ namespace WindowsGame1
                     (int)(currentFrame.Y * frameSize.Y),
                     (int)(frameSize.X),
                     (int)(frameSize.Y)),
-                Color.White, rotacao - cena.camaraAtual.rotacao, origem, spriteEffects, 0);
+                color, rotacao - cena.camaraAtual.rotacao, origem, spriteEffects, 0);
         }
 
         virtual public bool ContainsPointOnScreen(Point point)

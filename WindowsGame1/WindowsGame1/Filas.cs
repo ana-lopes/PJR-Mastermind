@@ -11,6 +11,8 @@ namespace WindowsGame1
         BuracoDeCor[] cores = new BuracoDeCor[4];
         BuracoDeCorrecao[,] correcao = new BuracoDeCorrecao[2, 2];
 
+        public int indexBuraco;
+
         static float escalaX = 3 / 4f;
         static float escalaY = 1 / 13f;
         static float posicaoX = 1 / 2f;
@@ -19,6 +21,7 @@ namespace WindowsGame1
             new Vector2(posicaoX * MyGame.instance.GraphicsDevice.Viewport.Width, 
                 (1 + indice)/13f * MyGame.instance.GraphicsDevice.Viewport.Height), cena)
         {
+            indexBuraco = 0;
             escala = new Vector2(escalaX * MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
                 escalaY * MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
             if (indice != 11 || MyGame.instance.player != 2)
@@ -44,6 +47,36 @@ namespace WindowsGame1
                         (1 + indice) / 13f);
                     cena.RegistarAnimacao(cores[i], 3);
                 }
+            }
+        }
+
+        public void PorCor(Color color)
+        {
+            if (indexBuraco < 4)
+            {
+                bool exists = false;
+                foreach (BuracoDeCor b in cores)
+                {
+                    if (b.color == color)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists)
+                {
+                    cores[indexBuraco].color = color;
+                    indexBuraco++;
+                }
+            }
+        }
+
+        public void Tirar()
+        {
+            if (indexBuraco > 0)
+            {
+                cores[indexBuraco - 1].color = Color.White;
+                indexBuraco--;
             }
         }
     }
