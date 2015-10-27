@@ -5,8 +5,9 @@ namespace WindowsGame1
 {
     internal class BuracoDeCor : Animacao
     {
-        static float escalaX = 3 / 20f;
-        static float escalaY = 1 / 13f;
+        const float escalaX = 3 / 20f;
+        const float escalaY = 1 / 13f;
+        public ColorName colorName = ColorName.Empty;
 
         public BuracoDeCor(Cena cena, float posicaoX, float posicaoY)
             : base(Assets.buraco, new Vector2(posicaoX * MyGame.instance.GraphicsDevice.Viewport.Width, 

@@ -9,8 +9,10 @@ namespace WindowsGame1
     {
         public static MyGame instance;
         private Cena cenaAtual;
+
         public bool gaming;
         public int player;
+
         public static string name = "Mastermind";
 
         protected override void LoadContent()

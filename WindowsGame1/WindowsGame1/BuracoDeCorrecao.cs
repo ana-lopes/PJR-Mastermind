@@ -5,8 +5,9 @@ namespace WindowsGame1
 {
     internal class BuracoDeCorrecao : Animacao
     {
-        static float escalaX = 3 / 40f;
-        static float escalaY = 1 / 26f;
+        const float escalaX = 3 / 40f;
+        const float escalaY = 1 / 26f;
+        public ColorName colorName = ColorName.Empty;
 
         public BuracoDeCorrecao(Cena cena, float posicaoX, float posicaoY) : 
             base(Assets.buraco, new Vector2(posicaoX * MyGame.instance.GraphicsDevice.Viewport.Width,
@@ -14,6 +15,7 @@ namespace WindowsGame1
         {
             escala = new Vector2(escalaX * MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
                 escalaY * MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
+            color = Color.CornflowerBlue;
         }
     }
 }

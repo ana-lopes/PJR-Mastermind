@@ -9,15 +9,19 @@ namespace MastermindServer
 {
     class ChatClient
     {
-        const byte messageByte = (byte)'M', errorByte = (byte)'E', loginAprovedByte = (byte)'O';
-        const byte startByte = (byte)'S', playByte = (byte)'P', stopPlayingByte = (byte)'B';
-        const string renameString = "N", messageString = "M", logoutString = "L"; 
+        public const byte messageByte = (byte)'M', errorByte = (byte)'E', loginAprovedByte = (byte)'O';
+        public const byte startByte = (byte)'S', playByte = (byte)'P', stopPlayingByte = (byte)'B';
+        public const byte guessByte = (byte)'C', correctionByte = (byte)'D';
+        public const string renameString = "N", messageString = "M", logoutString = "L";
+        public const string firstSequenceString = "A", guessString = "C", correctionString = "D";
 
         bool authenticated = false;
+        bool playing = false;
         bool dead;
+        string mensagem = "";
 
         TcpClient client;
-        NetworkStream stream;
+        public NetworkStream stream;
 
         ChatServer server;
 
@@ -32,6 +36,54 @@ namespace MastermindServer
             this.nick = client.Client.RemoteEndPoint.ToString();
             dead = false;
         }
+        
+        public void Run()
+        {
+            while (true)
+            {
+                // Ler a mensagem que pode ser dividida por pacotes IP.
+                // Daí se ter convencionado que cada linha termina com newline.
+                try
+                {
+                    ReadMessage();
+
+                    // O processamento das mensagens recebidas depende do estado em que o 
+                    // cliente está: antes ou depois de se ter autenticado.
+                    if (authenticated)
+                    {
+                        if (!DecodeMessage())
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (!TryAuthentication())
+                        {
+                            Die("TryAuthentication");
+                            break;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Die("Run");
+                    break;
+                }
+            }
+        }
+
+        public void ReadMessage()
+        {
+            while (!mensagem.Contains("\n"))
+            {
+                byte[] buffer = new byte[1024];
+                int readBytes = stream.Read(buffer, 0, 1024);
+                mensagem += Encoding.ASCII.GetString(buffer, 0, readBytes);
+            }
+
+        }
 
         public void SendMessage(byte[] buffer)
         {
@@ -43,48 +95,11 @@ namespace MastermindServer
             }
             catch
             {
-                Die();
+                Die("SendMessage");
             }
         }
 
-        public void Run()
-        {
-            while (true)
-            {
-                // Ler a mensagem que pode ser dividida por pacotes IP.
-                // Daí se ter convencionado que cada linha termina com newline.
-                try
-                {
-                    string mensagem = ReadMessage();
-
-                    // O processamento das mensagens recebidas depende do estado em que o 
-                    // cliente está: antes ou depois de se ter autenticado.
-                    if (authenticated)
-                    {
-                        if (!DecodeMessage(mensagem))
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (!TryAuthentication(mensagem))
-                        {
-                            Die();
-                            break;
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Die();
-                    break;
-                }
-            }
-        }
-
-        public bool TryAuthentication(string mensagem)
+        public bool TryAuthentication()
         {
             Console.WriteLine(nick + " não autenticado");
             // Se não está autenticado, só recebemos mensagens do tipo N, com
@@ -93,9 +108,12 @@ namespace MastermindServer
             {
                 if (server.NumberClients <= ChatServer.maxNumberPlayers)
                 {
-                    bool b = TryRename(mensagem);
+                    bool b = TryRename();
                     if (b && server.NumberClients == ChatServer.maxNumberPlayers)
                         server.StartGame();
+                    
+                    mensagem = "";
+
                     return b;
                 }
                 else
@@ -103,98 +121,24 @@ namespace MastermindServer
                     stream.WriteByte(errorByte);
                     stream.WriteByte((byte)'1');
                     stream.WriteByte((byte)'\n');
-                    Die();
+                    Die("MaxNumberPlayers");
+
+                    mensagem = "";
+
                     return false;
                 }
             }
             else
             {
-                Die();
+                Die("FailedAuthentication");
+
+                mensagem = "";
+
                 return false;
             }  
         }
 
-        public string ReadMessage()
-        {
-            int readBytes;
-            string mensagem = "";
-            byte[] buffer = new byte[1024];
-            do
-            {
-                readBytes = stream.Read(buffer, 0, 1024);
-                mensagem += Encoding.ASCII.GetString(buffer, 0, readBytes);
-            } while (!mensagem.Contains("\n"));
-
-            return mensagem;
-        }
-
-        public bool DecodeMessage(string mensagem)
-        {
-            // Se está autenticado, recebe mensagens do tipo M. Extrai a mensagem
-            // e coloca-a na queue do ChatServer para que este envie para todos os
-            // clientes. 
-            // Se a mensagem é desconhecida, então mata-se o cliente por não 
-            // respeitar o protocolo.
-            Console.WriteLine(nick + " autenticado");
-
-            if (mensagem.StartsWith(messageString))
-            {
-                string msg = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n', '\r' }) - 1);
-
-                //rename nick 
-                if (mensagem.StartsWith(messageString + "/rename"))
-                {
-                    string msg1 = msg.Substring(8, msg.Length - 8);
-                    string oldname = nick;
-
-                    if (server.Rename(nick, msg1))
-                    {
-                        nick = msg1;
-                        msg1 = oldname + " changed their name to " + nick;
-                        server.messageQueue.Enqueue(msg1);
-
-                        Console.WriteLine(msg1);
-                    }
-
-                    else
-                    {
-                        msg1 = nick + " can't change name to " + msg1 + " because it's already in use. Try again.";
-                        server.messageQueue.Enqueue(msg1);
-
-                        Console.WriteLine(msg1);
-                    }
-
-                }
-                //if plain message
-                else
-                {
-                    msg = nick + ": " + msg;
-                    server.messageQueue.Enqueue(msg);
-                    Console.WriteLine(msg);
-                }                
-                
-                return true;
-            }
-
-            else if (mensagem.StartsWith(logoutString) && !dead)
-            {
-                string msg = nick + " logging out. ";               
-                server.messageQueue.Enqueue(msg);
-
-                Console.WriteLine(nick + " logging out");
-
-                Die();
-                return true;
-            }
-
-            else
-            {
-                Die();
-                return false;
-            } 
-        }
-
-        public bool TryRename(string mensagem)
+        public bool TryRename()
         {
             //Tentamos usar esse nick. Se estiver livre, retornamos
             // com mensagem de sucesso "O"
@@ -226,10 +170,183 @@ namespace MastermindServer
                 stream.WriteByte((byte)errorByte);
                 stream.WriteByte((byte)'0');
                 stream.WriteByte((byte)'\n');
-                Die();
+                Die("FailedTryRename");
                 return false;
             }
-                
+
+        }
+
+        public bool DecodeMessage()
+        {            
+            string firstMessage = this.mensagem.Substring(0, this.mensagem.IndexOfAny(new char[] { '\n' }) + 1);
+            // Se está autenticado, recebe mensagens do tipo M. Extrai a mensagem
+            // e coloca-a na queue do ChatServer para que este envie para todos os
+            // clientes. 
+            // Se a mensagem é desconhecida, então mata-se o cliente por não 
+            // respeitar o protocolo.
+            Console.WriteLine(nick + " autenticado");
+
+            if (firstMessage.StartsWith(messageString))
+            {
+                return ProcessMessage(firstMessage);
+            }
+            else if (firstMessage.StartsWith(firstSequenceString))
+            {
+                return ProcessFirstSequence(firstMessage);
+            }
+            else if (firstMessage.StartsWith(guessString))
+            {
+                return ProcessGuess(firstMessage);
+            }
+            else if (firstMessage.StartsWith(correctionString))
+            {
+                return ProcessCorrection(firstMessage);
+            }
+            else if (firstMessage.StartsWith(logoutString) && !dead)
+            {
+                return ProcessLogout(firstMessage);
+            }
+            else
+            {
+                Die("FailedDecodeMessage");
+                return false;
+            } 
+        }
+
+        private bool ProcessMessage(string firstMessage)
+        {
+            string messageContent = firstMessage.Substring(1, firstMessage.IndexOfAny(new char[] { '\n', '\r' }) - 1);
+
+            //rename nick 
+            if (firstMessage.StartsWith(messageContent + "/rename"))
+            {
+                string newNick = messageContent.Substring(8, messageContent.Length - 8);
+                string oldname = nick;
+
+                if (server.Rename(nick, newNick))
+                {
+                    nick = newNick;
+                    newNick = oldname + " changed their name to " + nick;
+                    server.messageQueue.Enqueue(newNick);
+
+                    Console.WriteLine(newNick);
+                }
+
+                else
+                {
+                    newNick = nick + " can't change name to " + newNick + " because it's already in use. Try again.";
+                    server.messageQueue.Enqueue(newNick);
+
+                    Console.WriteLine(newNick);
+                }
+
+            }
+            //if plain message
+            else
+            {
+                messageContent = nick + ": " + messageContent;
+                server.messageQueue.Enqueue(messageContent);
+                Console.WriteLine(messageContent);
+            }
+
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
+        }
+
+        private bool ProcessFirstSequence(string firstMessage)
+        {
+            string color = firstMessage.Substring(1, firstMessage.Length - 2);
+            server.firstSequence.Add(color);
+            Console.WriteLine(nick + " mandou " + color);
+            if (server.firstSequence.Count == 4)
+            {
+                Console.WriteLine(nick + " mandou sequencia completa");
+                foreach (KeyValuePair<string, ChatClient> pair in server.clients)
+                {
+                    pair.Value.Switch();
+                }
+            }
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
+        }
+
+        private bool ProcessLogout(string firstMessage)
+        {
+            string logout = nick + " logging out. ";
+            server.messageQueue.Enqueue(logout);
+
+            Console.WriteLine(nick + " logging out");
+
+            Die("Logout");
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
+        }
+
+        private bool ProcessGuess(string firstMessage)
+        {
+            string color = firstMessage.Substring(1, firstMessage.Length - 2);
+            server.guessSequence.Add(color);
+            Console.WriteLine(nick + " mandou " + color);
+            if (server.guessSequence.Count == 4)
+            {
+                Console.WriteLine(nick + " mandou sequencia completa");
+                server.VerefyGuess();
+                foreach (KeyValuePair<string, ChatClient> pair in server.clients)
+                {
+                    pair.Value.Switch();
+                }
+            }
+
+            server.SendGuess();
+
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
+        }
+
+        private bool ProcessCorrection(string firstMessage)
+        {
+            string color = firstMessage.Substring(1, firstMessage.Length - 2);
+            server.correctionSequence.Add(color);
+            Console.WriteLine(nick + " mandou " + color);
+            if (server.correctionSequence.Count == 4)
+            {
+                Console.WriteLine(nick + " mandou sequencia completa");
+                server.VerefyCorrection();
+                foreach (KeyValuePair<string, ChatClient> pair in server.clients)
+                {
+                    pair.Value.Switch();
+                }
+            }
+
+            server.SendCorrection();
+
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
         }
 
         public void Start(byte b)
@@ -239,19 +356,29 @@ namespace MastermindServer
             stream.WriteByte((byte)'\n');
         }
 
+        public void Switch()
+        {
+            if (playing)
+                StopPlaying();
+            else
+                Play();
+        }
+
         public void Play()
         {
             stream.WriteByte((byte)playByte);
-            stream.WriteByte((byte)'\n'); 
+            stream.WriteByte((byte)'\n');
+            playing = true;
         }
 
         public void StopPlaying()
         {
             stream.WriteByte((byte)stopPlayingByte);
             stream.WriteByte((byte)'\n');
+            playing = false;
         }
 
-        public void Die()
+        public void Die(string motivo)
         {
             // Matar um cliente é fechar a ligação e removê-lo da lista
             // de clientes ativos. Também adicionamos uma mensagem a enviar
@@ -259,7 +386,7 @@ namespace MastermindServer
             stream.Close();
             client.Close();
 
-            if (ChatServer.clients.Remove(nick))
+            if (server.clients.Remove(nick))
             {
                 Console.WriteLine(nick + " desligou-se");
                 server.messageQueue.Enqueue(nick + " desligou-se!");
