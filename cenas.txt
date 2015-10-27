@@ -1,0 +1,28 @@
+N - rename (Login - > Server)
+O - login validado (Server - > Login)
+M - message (Server - > GameForm)
+M/rename - rename (GameForm -> Server)
+L - loging out (GameForm - > Server)
+S - Start e index de player (Server - > GameForm)
+P - Play (Server - > GameForm)
+B - Stop Playing (Server - > GameForm)
+E0 - nick está a ser utilizado (Server - > Login/GameForm)
+E1 - servidor cheio (Server -> Login)
+A - Sequencia definida (GameForm1 - > Server)
+C - adivinha (GameForm2 - > Server, Server -> GameForm1)
+D - correcao (GameForm1 - > Server, Server -> GameForm2)
+
+
+Ordem Alfabetica
+A
+B
+C
+D
+E0
+E1
+L
+M
+N
+O
+P
+S   
