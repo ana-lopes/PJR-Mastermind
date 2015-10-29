@@ -163,7 +163,8 @@ namespace WindowsGame1
             }
             else if (firstMessage.StartsWith(victoryString))
             {
-                MessageBox.Show("Victory");
+                actions.Enqueue(StopPlaying);
+                MessageBox.Show("Victory"); 
                 MainMenu.instance.tabuleiro.Reset();
             }
             else if (firstMessage.StartsWith(defeatString))

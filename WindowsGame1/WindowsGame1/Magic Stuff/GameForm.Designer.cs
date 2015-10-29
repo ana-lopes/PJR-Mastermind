@@ -41,7 +41,6 @@
             this.Cyan = new System.Windows.Forms.Button();
             this.Accept = new System.Windows.Forms.Button();
             this.RedWhite = new System.Windows.Forms.Button();
-            this.myGame2 = new WindowsGame1.MyGame();
             this.Undo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,9 +51,10 @@
             // 
             // Send
             // 
-            this.Send.Location = new System.Drawing.Point(255, 352);
+            this.Send.Location = new System.Drawing.Point(448, 433);
+            this.Send.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Send.Name = "Send";
-            this.Send.Size = new System.Drawing.Size(75, 23);
+            this.Send.Size = new System.Drawing.Size(100, 28);
             this.Send.TabIndex = 12;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
@@ -63,9 +63,10 @@
             // CheaterAutoCorrect
             // 
             this.CheaterAutoCorrect.Enabled = false;
-            this.CheaterAutoCorrect.Location = new System.Drawing.Point(255, 402);
+            this.CheaterAutoCorrect.Location = new System.Drawing.Point(340, 495);
+            this.CheaterAutoCorrect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CheaterAutoCorrect.Name = "CheaterAutoCorrect";
-            this.CheaterAutoCorrect.Size = new System.Drawing.Size(75, 75);
+            this.CheaterAutoCorrect.Size = new System.Drawing.Size(100, 92);
             this.CheaterAutoCorrect.TabIndex = 18;
             this.CheaterAutoCorrect.Text = "CHEATER!";
             this.CheaterAutoCorrect.UseVisualStyleBackColor = true;
@@ -74,18 +75,20 @@
             // inputText
             // 
             this.inputText.AcceptsTab = true;
-            this.inputText.Location = new System.Drawing.Point(12, 352);
+            this.inputText.Location = new System.Drawing.Point(16, 433);
+            this.inputText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.inputText.Name = "inputText";
-            this.inputText.Size = new System.Drawing.Size(237, 20);
+            this.inputText.Size = new System.Drawing.Size(424, 22);
             this.inputText.TabIndex = 10;
             // 
             // YellowBlack
             // 
             this.YellowBlack.BackColor = System.Drawing.Color.Yellow;
             this.YellowBlack.Enabled = false;
-            this.YellowBlack.Location = new System.Drawing.Point(12, 483);
+            this.YellowBlack.Location = new System.Drawing.Point(16, 594);
+            this.YellowBlack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.YellowBlack.Name = "YellowBlack";
-            this.YellowBlack.Size = new System.Drawing.Size(75, 75);
+            this.YellowBlack.Size = new System.Drawing.Size(100, 92);
             this.YellowBlack.TabIndex = 14;
             this.YellowBlack.UseVisualStyleBackColor = false;
             this.YellowBlack.Click += new System.EventHandler(this.YellowBlack_Click);
@@ -93,18 +96,22 @@
             // outputChat
             // 
             this.outputChat.FormattingEnabled = true;
-            this.outputChat.Location = new System.Drawing.Point(12, 12);
+            this.outputChat.HorizontalScrollbar = true;
+            this.outputChat.ItemHeight = 16;
+            this.outputChat.Location = new System.Drawing.Point(16, 15);
+            this.outputChat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.outputChat.Name = "outputChat";
-            this.outputChat.Size = new System.Drawing.Size(318, 329);
+            this.outputChat.Size = new System.Drawing.Size(532, 404);
             this.outputChat.TabIndex = 8;
             // 
             // Pink
             // 
             this.Pink.BackColor = System.Drawing.Color.Fuchsia;
             this.Pink.Enabled = false;
-            this.Pink.Location = new System.Drawing.Point(93, 483);
+            this.Pink.Location = new System.Drawing.Point(124, 594);
+            this.Pink.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Pink.Name = "Pink";
-            this.Pink.Size = new System.Drawing.Size(75, 75);
+            this.Pink.Size = new System.Drawing.Size(100, 92);
             this.Pink.TabIndex = 15;
             this.Pink.UseVisualStyleBackColor = false;
             this.Pink.Click += new System.EventHandler(this.Pink_Click);
@@ -113,9 +120,10 @@
             // 
             this.Green.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Green.Enabled = false;
-            this.Green.Location = new System.Drawing.Point(174, 402);
+            this.Green.Location = new System.Drawing.Point(232, 495);
+            this.Green.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Green.Name = "Green";
-            this.Green.Size = new System.Drawing.Size(75, 75);
+            this.Green.Size = new System.Drawing.Size(100, 92);
             this.Green.TabIndex = 13;
             this.Green.UseVisualStyleBackColor = false;
             this.Green.Click += new System.EventHandler(this.Green_Click);
@@ -124,9 +132,10 @@
             // 
             this.Blue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.Blue.Enabled = false;
-            this.Blue.Location = new System.Drawing.Point(93, 402);
+            this.Blue.Location = new System.Drawing.Point(124, 495);
+            this.Blue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Blue.Name = "Blue";
-            this.Blue.Size = new System.Drawing.Size(75, 75);
+            this.Blue.Size = new System.Drawing.Size(100, 92);
             this.Blue.TabIndex = 11;
             this.Blue.UseVisualStyleBackColor = false;
             this.Blue.Click += new System.EventHandler(this.Blue_Click);
@@ -135,9 +144,10 @@
             // 
             this.Cyan.BackColor = System.Drawing.Color.Aqua;
             this.Cyan.Enabled = false;
-            this.Cyan.Location = new System.Drawing.Point(174, 483);
+            this.Cyan.Location = new System.Drawing.Point(232, 594);
+            this.Cyan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Cyan.Name = "Cyan";
-            this.Cyan.Size = new System.Drawing.Size(75, 75);
+            this.Cyan.Size = new System.Drawing.Size(100, 92);
             this.Cyan.TabIndex = 16;
             this.Cyan.UseVisualStyleBackColor = false;
             this.Cyan.Click += new System.EventHandler(this.Cyan_Click);
@@ -145,9 +155,10 @@
             // Accept
             // 
             this.Accept.Enabled = false;
-            this.Accept.Location = new System.Drawing.Point(255, 483);
+            this.Accept.Location = new System.Drawing.Point(340, 594);
+            this.Accept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Accept.Name = "Accept";
-            this.Accept.Size = new System.Drawing.Size(75, 75);
+            this.Accept.Size = new System.Drawing.Size(100, 92);
             this.Accept.TabIndex = 17;
             this.Accept.Text = "Accept";
             this.Accept.Click += new System.EventHandler(this.Accept_Click);
@@ -156,27 +167,21 @@
             // 
             this.RedWhite.BackColor = System.Drawing.Color.Red;
             this.RedWhite.Enabled = false;
-            this.RedWhite.Location = new System.Drawing.Point(12, 402);
+            this.RedWhite.Location = new System.Drawing.Point(16, 495);
+            this.RedWhite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RedWhite.Name = "RedWhite";
-            this.RedWhite.Size = new System.Drawing.Size(75, 75);
+            this.RedWhite.Size = new System.Drawing.Size(100, 92);
             this.RedWhite.TabIndex = 9;
             this.RedWhite.UseVisualStyleBackColor = false;
             this.RedWhite.Click += new System.EventHandler(this.RedWhite_Click);
             // 
-            // myGame2
-            // 
-            this.myGame2.Location = new System.Drawing.Point(417, 12);
-            this.myGame2.Name = "myGame2";
-            this.myGame2.Size = new System.Drawing.Size(261, 549);
-            this.myGame2.TabIndex = 19;
-            this.myGame2.Text = "myGame2";
-            // 
             // Undo
             // 
             this.Undo.Enabled = false;
-            this.Undo.Location = new System.Drawing.Point(336, 402);
+            this.Undo.Location = new System.Drawing.Point(448, 495);
+            this.Undo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Undo.Name = "Undo";
-            this.Undo.Size = new System.Drawing.Size(75, 75);
+            this.Undo.Size = new System.Drawing.Size(100, 92);
             this.Undo.TabIndex = 20;
             this.Undo.Text = "Undo";
             this.Undo.UseVisualStyleBackColor = true;
@@ -184,11 +189,10 @@
             // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 573);
+            this.ClientSize = new System.Drawing.Size(920, 705);
             this.Controls.Add(this.Undo);
-            this.Controls.Add(this.myGame2);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.CheaterAutoCorrect);
             this.Controls.Add(this.inputText);
@@ -201,6 +205,7 @@
             this.Controls.Add(this.Accept);
             this.Controls.Add(this.RedWhite);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GameForm";
             this.Text = "Mastermind";
             this.Load += new System.EventHandler(this.GameForm_Load);
@@ -223,7 +228,6 @@
         private System.Windows.Forms.Button Cyan;
         private System.Windows.Forms.Button Accept;
         private System.Windows.Forms.Button RedWhite;
-        private MyGame myGame2;
         private System.Windows.Forms.Button Undo;
     }
 }
