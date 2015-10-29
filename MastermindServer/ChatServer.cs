@@ -16,13 +16,14 @@ namespace MastermindServer
         public Dictionary<string, ChatClient> clients;
 
         public Queue<string> messageQueue; // mensagens a enviar
-        string nameP1 = "", nameP2 = "";
+        string nameP1, nameP2;
 
         public List<string> firstSequence;
         public List<string> guessSequence;
         public List<string> correctionSequence;
         public int brancas/*lugar errado*/, pretas/*lugar certo*/;
-        public bool challengerIsCheater = false;
+        public bool challengerIsCheater, invertido = false;
+        public int jogada;
 
         public ChatServer(int port)
         {
@@ -65,17 +66,30 @@ namespace MastermindServer
         public void StartGame()
         {
             int player = 1;
+            jogada = 0;
+            challengerIsCheater = false;
             nameP1 = nameP2 = "";
+            firstSequence.Clear();
+            guessSequence.Clear();
+            correctionSequence.Clear();
+
             foreach (KeyValuePair<string, ChatClient> pair in clients)
             {                
-                pair.Value.Start(player == 1 ? (byte)'1' : (byte)'2');
-                if (nameP1 == "")
-                    nameP1 = pair.Key;
+                pair.Value.Start(player == 1 ? (!invertido ? (byte)'1' : (byte)'2') : (!invertido ? (byte)'2' : (byte)'1'));
+                if (!invertido)
+                {
+                    if (nameP1 == "") nameP1 = pair.Key;
+                    else nameP2 = pair.Key;
+                }
                 else
-                    nameP2 = pair.Key;
+                {
+                    if (nameP2 == "") nameP2 = pair.Key;
+                    else nameP1 = pair.Key;
+                }
                 Console.WriteLine("Start send to " + pair.Key);
                 player++;
             }
+
             messageQueue.Enqueue(nameP1 + " is setting the sequence. " + nameP2 + " please stand by");
             clients[nameP1].Play();
             clients[nameP2].StopPlaying();
@@ -102,9 +116,10 @@ namespace MastermindServer
                 clients[nameP1].stream.Write(bfr, 0, bfr.Length);
                 clients[nameP1].stream.WriteByte((byte)'\n');
             }
+            correctionSequence.Clear();
         }
 
-        public void VerefyGuess()
+        public int VerefyGuess()
         {
             brancas = pretas = 0;
             foreach (string s in firstSequence)
@@ -120,6 +135,24 @@ namespace MastermindServer
                     }
                 }
             }
+            jogada++;
+            if (pretas == 4)
+                return 1;
+            else if (jogada == 10)
+                return -1;
+            else return 0;
+        }
+
+        public void SendCorrection()
+        {
+            foreach (string s in correctionSequence)
+            {
+                clients[nameP2].stream.WriteByte(ChatClient.correctionByte);
+                byte[] bfr = Encoding.ASCII.GetBytes(s);
+                clients[nameP2].stream.Write(bfr, 0, bfr.Length);
+                clients[nameP2].stream.WriteByte((byte)'\n');
+            }
+            guessSequence.Clear();
         }
 
         public void VerefyCorrection()
@@ -141,9 +174,24 @@ namespace MastermindServer
             }
         }
 
-        public void SendCorrection()
+        public void ChallengerWin()
         {
+            clients[nameP1].stream.WriteByte(ChatClient.victoryByte);
+            clients[nameP1].stream.WriteByte((byte)'\n');
+            clients[nameP2].stream.WriteByte(ChatClient.defeatByte);
+            clients[nameP2].stream.WriteByte((byte)'\n');
+            invertido = !invertido;
+            StartGame();
+        }
 
+        public void ChallengedWin()
+        {
+            clients[nameP2].stream.WriteByte(ChatClient.victoryByte);
+            clients[nameP2].stream.WriteByte((byte)'\n');
+            clients[nameP1].stream.WriteByte(ChatClient.defeatByte);
+            clients[nameP1].stream.WriteByte((byte)'\n');
+            invertido = !invertido;
+            StartGame();
         }
 
         async void createMyThread()

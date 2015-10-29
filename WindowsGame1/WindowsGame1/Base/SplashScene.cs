@@ -13,7 +13,6 @@ namespace WindowsGame1
         public static SplashScene instance;
         private Texture2D splashTexture;
         private Animacao splash;
-        private Thread thread;
 
         public SplashScene()
             : base()
@@ -28,15 +27,21 @@ namespace WindowsGame1
                 new Vector2(MyGame.instance.GraphicsDevice.Viewport.Width / 2,
                     MyGame.instance.GraphicsDevice.Viewport.Height / 2), 2, 1, 0.1f, this);
             RegistarAnimacao(splash, 0);
-            thread = new Thread(Assets.Load);
+            Thread thread = new Thread(CreateMainMenu);
             thread.Start();
+        }
+
+        private void CreateMainMenu()
+        {
+            Assets.Load(); 
+            MainMenu.instance = new MainMenu();
         }
 
         protected override void Atuar(float delta)
         {
             if (!Assets.IsLoading() && MyGame.instance.gaming)
             {
-                MyGame.instance.CenaAtual = MainMenu.instance = new MainMenu();
+                MyGame.instance.CenaAtual = MainMenu.instance;
                 this.Hide();
             }
         }

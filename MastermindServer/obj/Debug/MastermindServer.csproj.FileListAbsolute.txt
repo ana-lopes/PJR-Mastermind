@@ -6,4 +6,3 @@ C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\obj\De
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\MastermindServer\bin\Debug\MastermindServer.exe.config
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\MastermindServer\obj\Debug\MastermindServer.exe
 C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\MastermindServer\obj\Debug\MastermindServer.pdb
-C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\MastermindServer\obj\Debug\MastermindServer.csprojResolveAssemblyReference.cache

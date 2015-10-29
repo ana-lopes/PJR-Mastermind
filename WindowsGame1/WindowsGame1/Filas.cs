@@ -14,6 +14,8 @@ namespace WindowsGame1
 
         public int indexCor, indexCorrecao;
 
+        private bool sequence = false;
+
         const float escalaX = 3 / 4f;
         const float escalaY = 1 / 13f;
         const float posicaoX = 1 / 2f;
@@ -39,15 +41,17 @@ namespace WindowsGame1
                     }
                 }
             }
+            else sequence = true;
 
             for (int i = 0; i < 4; i++)
             {
                 cores[i] = new BuracoDeCor(cena,
                     1 / 8f + 3 / 40f + (i * 3 / 20f),
                     (1 + indice) / 13f);
+                cena.RegistarAnimacao(cores[i], 3);
 
-                if (indice != 11 || MyGame.instance.player != 2)
-                    cena.RegistarAnimacao(cores[i], 3);
+                if (indice == 11 && MyGame.instance.player == 2)
+                    this.textura = null;
             }
         }
 
@@ -100,6 +104,14 @@ namespace WindowsGame1
             }
         }
 
+        public void PorCorrecao(ColorName color)
+        {
+            if (color == ColorName.Branco)
+                PorCorrecao(Color.White);
+            else if (color == ColorName.Preto)
+                PorCorrecao(Color.Black);
+        }
+
         public void PorCorrecao(Color color)
         {
             if (indexCorrecao < 4)
@@ -139,6 +151,24 @@ namespace WindowsGame1
         public string GetCorrectionSequence(int i)
         {
             return correcao[i / 2, i % 2].colorName.ToString();
+        }
+
+        internal void Reset()
+        {
+            foreach(BuracoDeCor b in cores)
+            {
+                b.Reset();
+            }
+
+            if (!sequence)
+            {
+                foreach (BuracoDeCorrecao b in correcao)
+                {
+                    b.Reset();
+                }
+            }
+
+            indexCor = indexCorrecao = 0;
         }
     }
 }

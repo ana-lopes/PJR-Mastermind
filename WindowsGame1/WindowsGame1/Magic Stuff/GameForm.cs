@@ -27,6 +27,7 @@ namespace WindowsGame1
         public const string startString = "S", playString = "P", stopPlayingString = "B";
         public const string messageString = "M", loginAprovedString = "O", errorString = "E";
         public const string guessString = "C", correctionString = "D";
+        public const string victoryString = "V", defeatString = "Z";
 
         static public GameForm instance;
         private Form form;
@@ -118,6 +119,8 @@ namespace WindowsGame1
         {
             string firstMessage = mensagem.Substring(0, mensagem.IndexOfAny(new char[] { '\n' }) + 1);
 
+            Console.WriteLine(playerType.ToString() + firstMessage);
+
             if (firstMessage.StartsWith(messageString))
             {
                 recievingMessages.Enqueue(firstMessage.Substring(1, firstMessage.Length - 2));
@@ -129,12 +132,14 @@ namespace WindowsGame1
                     playerType = PlayerType.Challenger;
                     actions.Enqueue(Layout2);
                     actions.Enqueue(MyGame.instance.Start1);
+                    jogada = 0;
                 }
                 else if (firstMessage.StartsWith(startString + "2"))
                 {
                     playerType = PlayerType.Challenged;
                     actions.Enqueue(Layout2);
                     actions.Enqueue(MyGame.instance.Start2);
+                    jogada = 0;
                 }
                 else
                     MessageBox.Show("ERROR while trying to read data");
@@ -148,11 +153,24 @@ namespace WindowsGame1
                 string colorString = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n' }));
                 MainMenu.instance.tabuleiro.filas[10 - jogada].PorCor((ColorName)Enum.Parse(typeof(ColorName), colorString));
             }
+            else if (firstMessage.StartsWith(correctionString))
+            {
+                string colorString = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n' }));
+                MainMenu.instance.tabuleiro.filas[10 - jogada].PorCorrecao((ColorName)Enum.Parse(typeof(ColorName), colorString));
+            }
+            else if (firstMessage.StartsWith(victoryString))
+            {
+                MessageBox.Show("Victory");
+                MainMenu.instance.tabuleiro.Reset();
+            }
+            else if (firstMessage.StartsWith(defeatString))
+            {
+                MessageBox.Show("Defeat");
+                MainMenu.instance.tabuleiro.Reset();
+            }
 
             if (mensagem.Length != firstMessage.Length)
-            {
                 mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
-            }
             else
                 mensagem = "";
         }

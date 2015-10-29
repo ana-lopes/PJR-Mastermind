@@ -11,7 +11,8 @@ E1 - servidor cheio (Server -> Login)
 A - Sequencia definida (GameForm1 - > Server)
 C - adivinha (GameForm2 - > Server, Server -> GameForm1)
 D - correcao (GameForm1 - > Server, Server -> GameForm2)
-
+V - vitória (Server -> Gameform)
+Z - derrota (Server -> Gameform)
 
 Ordem Alfabetica
 A
@@ -25,4 +26,6 @@ M
 N
 O
 P
-S   
+S  
+V
+Z 

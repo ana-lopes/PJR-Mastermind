@@ -16,5 +16,10 @@ namespace WindowsGame1
             escala = new Vector2(escalaX * MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
                 escalaY * MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
         }
+
+        internal void Reset()
+        {
+            color = Color.White;
+        }
     }
 }

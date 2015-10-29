@@ -12,6 +12,7 @@ namespace MastermindServer
         public const byte messageByte = (byte)'M', errorByte = (byte)'E', loginAprovedByte = (byte)'O';
         public const byte startByte = (byte)'S', playByte = (byte)'P', stopPlayingByte = (byte)'B';
         public const byte guessByte = (byte)'C', correctionByte = (byte)'D';
+        public const byte victoryByte = (byte)'V', defeatByte = (byte)'Z';
         public const string renameString = "N", messageString = "M", logoutString = "L";
         public const string firstSequenceString = "A", guessString = "C", correctionString = "D";
 
@@ -302,18 +303,23 @@ namespace MastermindServer
             string color = firstMessage.Substring(1, firstMessage.Length - 2);
             server.guessSequence.Add(color);
             Console.WriteLine(nick + " mandou " + color);
+            int result = 0;
             if (server.guessSequence.Count == 4)
             {
                 Console.WriteLine(nick + " mandou sequencia completa");
-                server.VerefyGuess();
+                result = server.VerefyGuess();
                 foreach (KeyValuePair<string, ChatClient> pair in server.clients)
                 {
                     pair.Value.Switch();
                 }
+                server.SendGuess();
             }
 
-            server.SendGuess();
-
+            if (result == 1)
+                server.ChallengedWin();
+            else if (result == -1)
+                server.ChallengerWin();
+            
             if (mensagem.Length != firstMessage.Length)
             {
                 mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
@@ -336,9 +342,8 @@ namespace MastermindServer
                 {
                     pair.Value.Switch();
                 }
+                server.SendCorrection();
             }
-
-            server.SendCorrection();
 
             if (mensagem.Length != firstMessage.Length)
             {
@@ -389,7 +394,6 @@ namespace MastermindServer
             if (server.clients.Remove(nick))
             {
                 Console.WriteLine(nick + " desligou-se");
-                server.messageQueue.Enqueue(nick + " desligou-se!");
                 dead = true;
             }
         }

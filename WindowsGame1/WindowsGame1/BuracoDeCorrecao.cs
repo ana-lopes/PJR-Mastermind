@@ -17,5 +17,10 @@ namespace WindowsGame1
                 escalaY * MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
             color = Color.CornflowerBlue;
         }
+
+        internal void Reset()
+        {
+            color = Color.CornflowerBlue;
+        }
     }
 }

@@ -26,6 +26,11 @@ namespace WindowsGame1
                 MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
         }
 
-        
+        public void Reset()
+        {
+            foreach (Fila f in filas)
+                f.Reset();
+            sequencia.Reset();
+        }
     }
 }

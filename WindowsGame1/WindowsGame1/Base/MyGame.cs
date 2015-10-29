@@ -45,12 +45,14 @@ namespace WindowsGame1
         {
             gaming = true;
             this.player = 1;
+            MainMenu.instance.tabuleiro.Reset();
         }
 
         public void Start2()
         {
             gaming = true;
             this.player = 2;
+            MainMenu.instance.tabuleiro.Reset();
         }
     }
 }
