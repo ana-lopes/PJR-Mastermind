@@ -21,6 +21,7 @@ namespace WindowsGame1
         internal void Reset()
         {
             color = Color.CornflowerBlue;
+            colorName = ColorName.Empty;
         }
     }
 }

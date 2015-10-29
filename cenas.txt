@@ -13,6 +13,8 @@ C - adivinha (GameForm2 - > Server, Server -> GameForm1)
 D - correcao (GameForm1 - > Server, Server -> GameForm2)
 V - vitória (Server -> Gameform)
 Z - derrota (Server -> Gameform)
+R - restart (Server -> Gameform)
+H - Cheater (Gameform 2 -> Server)
 
 Ordem Alfabetica
 A
@@ -26,6 +28,7 @@ M
 N
 O
 P
+R
 S  
 V
 Z 

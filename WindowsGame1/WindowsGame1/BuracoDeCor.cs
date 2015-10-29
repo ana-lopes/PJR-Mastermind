@@ -19,6 +19,7 @@ namespace WindowsGame1
 
         internal void Reset()
         {
+            colorName = ColorName.Empty;
             color = Color.White;
         }
     }

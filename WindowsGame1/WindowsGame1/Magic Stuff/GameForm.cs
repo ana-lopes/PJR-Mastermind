@@ -24,10 +24,11 @@ namespace WindowsGame1
     {
         public const byte messageByte = (byte)'M', renameByte = (byte)'N', logoutByte = (byte)'L';
         public const byte firsSequenceByte = (byte)'A', guessByte = (byte)'C', correctionByte = (byte)'D';
+        public const byte cheaterByte = (byte)'H';
         public const string startString = "S", playString = "P", stopPlayingString = "B";
         public const string messageString = "M", loginAprovedString = "O", errorString = "E";
         public const string guessString = "C", correctionString = "D";
-        public const string victoryString = "V", defeatString = "Z";
+        public const string victoryString = "V", defeatString = "Z", restartString = "R";
 
         static public GameForm instance;
         private Form form;
@@ -38,6 +39,8 @@ namespace WindowsGame1
         private Queue<string> recievingMessages;
         private Queue<Action> actions;
         private string mensagem;
+
+        List<string> sequence = new List<string>();
 
         int jogada;
         PlayerType playerType;
@@ -165,9 +168,15 @@ namespace WindowsGame1
             }
             else if (firstMessage.StartsWith(defeatString))
             {
-                StopPlaying();
+                actions.Enqueue(StopPlaying);
                 MessageBox.Show("Defeat");
                 MainMenu.instance.tabuleiro.Reset();
+            }
+            else if (firstMessage.StartsWith(restartString))
+            {
+                actions.Enqueue(StopPlaying);
+                sequence.Clear();
+                MyGame.instance.Restart();
             }
 
             if (mensagem.Length != firstMessage.Length)
@@ -308,7 +317,41 @@ namespace WindowsGame1
 
         private void CheaterAutoCorrect_Click(object sender, EventArgs e)
         {
-
+            if (playerType == PlayerType.Challenger)
+            {
+                int pretas = 0, brancas = 0;
+                List<string> list = new List<string>();
+                for (int i = 0; i<4; i++)
+                {
+                    list.Add(MainMenu.instance.tabuleiro.filas[10 - jogada + 1].GetColorSequence(i));
+                }
+                foreach (string s in sequence)
+                {
+                    foreach (string s2 in list)
+                    {
+                        if (s == s2)
+                        {
+                            if (sequence.IndexOf(s) == list.IndexOf(s2))
+                                pretas++;
+                            else
+                                brancas++;
+                        }
+                    }
+                }
+                for(int i = 0; i < pretas; i++)
+                {
+                    MainMenu.instance.tabuleiro.filas[10 - jogada + 1].PorCorrecao(ColorName.Preto);
+                }
+                for (int i = 0; i < brancas; i++)
+                {
+                    MainMenu.instance.tabuleiro.filas[10 - jogada + 1].PorCorrecao(ColorName.Branco);
+                }
+            }
+            else
+            {
+                stream.WriteByte(cheaterByte);
+                stream.WriteByte((byte)'\n');
+            }
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -326,6 +369,7 @@ namespace WindowsGame1
                             byte[] bfr = Encoding.ASCII.GetBytes(colors);
                             stream.Write(bfr, 0, bfr.Length);
                             stream.WriteByte((byte)'\n');
+                            sequence.Add(colors);
                         }
                         Layout1();
                     }
@@ -334,19 +378,14 @@ namespace WindowsGame1
                 }
                 else
                 {
-                    if (MainMenu.instance.tabuleiro.filas[10 - jogada + 1].indexCorrecao == 4)
+                    for (int i = 0; i < 4; i++)
                     {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            stream.WriteByte(correctionByte);
-                            string colors = MainMenu.instance.tabuleiro.filas[10 - jogada + 1].GetCorrectionSequence(i);
-                            byte[] bfr = Encoding.ASCII.GetBytes(colors);
-                            stream.Write(bfr, 0, bfr.Length);
-                            stream.WriteByte((byte)'\n');
-                        }
+                        stream.WriteByte(correctionByte);
+                        string colors = MainMenu.instance.tabuleiro.filas[10 - jogada + 1].GetCorrectionSequence(i);
+                        byte[] bfr = Encoding.ASCII.GetBytes(colors);
+                        stream.Write(bfr, 0, bfr.Length);
+                        stream.WriteByte((byte)'\n');
                     }
-                    else
-                        MessageBox.Show("Please write a correction");
                 }
             }
             else

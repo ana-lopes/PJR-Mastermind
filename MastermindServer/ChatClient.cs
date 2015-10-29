@@ -18,7 +18,7 @@ namespace MastermindServer
         public const string logoutString = "L", startString = "S", playString = "P"; 
         public const string stopPlayingString = "B", errorString = "E", firstSequenceString = "A";
         public const string guessString = "C", correctionString = "D", victoryString = "V";
-        public const string defeatString = "Z";
+        public const string defeatString = "Z", restartString = "R", cheaterString = "H";
 
         bool authenticated = false;
         bool playing = false;
@@ -215,11 +215,39 @@ namespace MastermindServer
             {
                 return ProcessLogout(firstMessage);
             }
+            else if (firstMessage.StartsWith(cheaterString))
+            {
+                return ProcessCheater(firstMessage);
+            }
             else
             {
                 Die("FailedDecodeMessage");
                 return false;
             } 
+        }
+
+        private bool ProcessCheater(string firstMessage)
+        {
+            string cheater = firstMessage.Substring(1, firstMessage.IndexOfAny(new char[] { '\n', '\r' }) - 1);
+
+            if (server.challengerIsCheater)
+            {
+                server.ChallengedWin();
+                server.messageQueue.Enqueue(messageString + "CHEATER FOUND! You should be ashamed\n");
+            }
+            else
+            {
+                server.ChallengerWin();
+                server.messageQueue.Enqueue(messageString + "NOT A CHEATER! Have faith in humanity\n");
+            }
+
+            if (mensagem.Length != firstMessage.Length)
+            {
+                mensagem = mensagem.Substring(mensagem.IndexOfAny(new char[] { '\n' }) + 1, mensagem.Length - firstMessage.Length);
+            }
+            else
+                mensagem = "";
+            return true;
         }
 
         private bool ProcessMessage(string firstMessage)
@@ -403,6 +431,10 @@ namespace MastermindServer
             {
                 Console.WriteLine(nick + " desligou-se");
                 dead = true;
+                foreach (KeyValuePair<string, ChatClient> pair in server.clients)
+                {
+                    pair.Value.messageQueue.Enqueue(restartString + "\n");
+                }
             }
         }
 

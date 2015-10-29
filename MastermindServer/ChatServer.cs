@@ -137,7 +137,7 @@ namespace MastermindServer
                     }
                 }
             }
-            jogada+=10;
+            jogada++;
             if (pretas == 4)
                 return 1;
             else if (jogada == 10)
@@ -168,7 +168,7 @@ namespace MastermindServer
                         brancas++;
                 }
 
-                if (this.brancas == brancas && this.pretas == pretas)
+                if (this.brancas != brancas || this.pretas != pretas)
                     challengerIsCheater = true;
             }
         }

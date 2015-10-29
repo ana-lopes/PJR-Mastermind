@@ -54,5 +54,11 @@ namespace WindowsGame1
             this.player = 2;
             MainMenu.instance.tabuleiro.Reset();
         }
+
+        public void Restart()
+        {
+            gaming = false;
+            CenaAtual = SplashScene.instance;
+        }
     }
 }
