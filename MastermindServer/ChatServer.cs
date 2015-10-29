@@ -54,11 +54,12 @@ namespace MastermindServer
                 {
                     // converter mensagem para bytes
                     string msg = messageQueue.Dequeue();
-                    byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);
+                    /*byte[] msgBuffer = Encoding.ASCII.GetBytes(msg);*/
 
                     // para cada cliente, enviar-lhe mensagem
                     foreach (var client in clients.Values.ToList())
-                        client.SendMessage(msgBuffer);
+                        client.messageQueue.Enqueue(msg);
+                        /*client.SendMessage(msgBuffer);*/
                 }
             }
         }
@@ -75,22 +76,26 @@ namespace MastermindServer
 
             foreach (KeyValuePair<string, ChatClient> pair in clients)
             {                
-                pair.Value.Start(player == 1 ? (!invertido ? (byte)'1' : (byte)'2') : (!invertido ? (byte)'2' : (byte)'1'));
+                pair.Value.Start(player == 1 ? (!invertido ? "1" : "2") : (!invertido ? "2" : "1"));
                 if (!invertido)
                 {
-                    if (nameP1 == "") nameP1 = pair.Key;
-                    else nameP2 = pair.Key;
+                    if (nameP1 == "") 
+                        nameP1 = pair.Key;
+                    else 
+                        nameP2 = pair.Key;
                 }
                 else
                 {
-                    if (nameP2 == "") nameP2 = pair.Key;
-                    else nameP1 = pair.Key;
+                    if (nameP2 == "") 
+                        nameP2 = pair.Key;
+                    else
+                        nameP1 = pair.Key;
                 }
                 Console.WriteLine("Start send to " + pair.Key);
                 player++;
             }
 
-            messageQueue.Enqueue(nameP1 + " is setting the sequence. " + nameP2 + " please stand by");
+            messageQueue.Enqueue(ChatClient.messageString + nameP1 + " is setting the sequence. " + nameP2 + " please stand by\n");
             clients[nameP1].Play();
             clients[nameP2].StopPlaying();
         }
@@ -111,10 +116,7 @@ namespace MastermindServer
         {
             foreach (string s in guessSequence)
             {
-                clients[nameP1].stream.WriteByte(ChatClient.guessByte);
-                byte[] bfr = Encoding.ASCII.GetBytes(s);
-                clients[nameP1].stream.Write(bfr, 0, bfr.Length);
-                clients[nameP1].stream.WriteByte((byte)'\n');
+                clients[nameP1].messageQueue.Enqueue(ChatClient.guessString + s + "\n");
             }
             correctionSequence.Clear();
         }
@@ -135,7 +137,7 @@ namespace MastermindServer
                     }
                 }
             }
-            jogada++;
+            jogada+=10;
             if (pretas == 4)
                 return 1;
             else if (jogada == 10)
@@ -147,10 +149,7 @@ namespace MastermindServer
         {
             foreach (string s in correctionSequence)
             {
-                clients[nameP2].stream.WriteByte(ChatClient.correctionByte);
-                byte[] bfr = Encoding.ASCII.GetBytes(s);
-                clients[nameP2].stream.Write(bfr, 0, bfr.Length);
-                clients[nameP2].stream.WriteByte((byte)'\n');
+                clients[nameP2].messageQueue.Enqueue(ChatClient.correctionString + s + "\n");
             }
             guessSequence.Clear();
         }
@@ -176,21 +175,17 @@ namespace MastermindServer
 
         public void ChallengerWin()
         {
-            clients[nameP1].stream.WriteByte(ChatClient.victoryByte);
-            clients[nameP1].stream.WriteByte((byte)'\n');
-            clients[nameP2].stream.WriteByte(ChatClient.defeatByte);
-            clients[nameP2].stream.WriteByte((byte)'\n');
+            clients[nameP1].messageQueue.Enqueue(ChatClient.victoryString + "\n");
+            clients[nameP2].messageQueue.Enqueue(ChatClient.defeatString + "\n");
             invertido = !invertido;
             StartGame();
         }
 
         public void ChallengedWin()
         {
-            clients[nameP2].stream.WriteByte(ChatClient.victoryByte);
-            clients[nameP2].stream.WriteByte((byte)'\n');
-            clients[nameP1].stream.WriteByte(ChatClient.defeatByte);
-            clients[nameP1].stream.WriteByte((byte)'\n');
-            invertido = !invertido;
+            clients[nameP2].messageQueue.Enqueue(ChatClient.victoryString + "\n");
+            clients[nameP1].messageQueue.Enqueue(ChatClient.defeatString + "\n");
+            invertido = !invertido;            
             StartGame();
         }
 

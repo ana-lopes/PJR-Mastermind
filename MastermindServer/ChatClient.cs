@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MastermindServer
 {
     class ChatClient
     {
-        public const byte messageByte = (byte)'M', errorByte = (byte)'E', loginAprovedByte = (byte)'O';
+        /*public const byte messageByte = (byte)'M', errorByte = (byte)'E', loginAprovedByte = (byte)'O';
         public const byte startByte = (byte)'S', playByte = (byte)'P', stopPlayingByte = (byte)'B';
         public const byte guessByte = (byte)'C', correctionByte = (byte)'D';
-        public const byte victoryByte = (byte)'V', defeatByte = (byte)'Z';
-        public const string renameString = "N", messageString = "M", logoutString = "L";
-        public const string firstSequenceString = "A", guessString = "C", correctionString = "D";
+        public const byte victoryByte = (byte)'V', defeatByte = (byte)'Z';*/
+        public const string renameString = "N", loginAprovedString = "O", messageString = "M";
+        public const string logoutString = "L", startString = "S", playString = "P"; 
+        public const string stopPlayingString = "B", errorString = "E", firstSequenceString = "A";
+        public const string guessString = "C", correctionString = "D", victoryString = "V";
+        public const string defeatString = "Z";
 
         bool authenticated = false;
         bool playing = false;
         bool dead;
         string mensagem = "";
+        public Queue<string> messageQueue;
 
         TcpClient client;
         public NetworkStream stream;
@@ -30,12 +35,15 @@ namespace MastermindServer
 
         public ChatClient(TcpClient client, ChatServer server)
         {
+            messageQueue = new Queue<string>();
             this.server = server;
             this.client = client;
             this.stream = client.GetStream();
             // Inicialmente o nosso nick é o nosso IP e porta
             this.nick = client.Client.RemoteEndPoint.ToString();
             dead = false;
+            Thread thread = new Thread(SendMessage);
+            thread.Start();
         }
         
         public void Run()
@@ -86,17 +94,20 @@ namespace MastermindServer
 
         }
 
-        public void SendMessage(byte[] buffer)
+        public void SendMessage()
         {
-            try
+            while (true)
             {
-                stream.WriteByte(messageByte);
-                stream.Write(buffer, 0, buffer.Length);
-                stream.WriteByte((byte)'\n');
-            }
-            catch
-            {
-                Die("SendMessage");
+                if (messageQueue.Count > 0)
+                {
+                    try
+                    {
+                        string msg = messageQueue.Dequeue();
+                        byte[] buffer = Encoding.ASCII.GetBytes(msg);
+                        stream.Write(buffer, 0, buffer.Length);
+                    }
+                    catch { Die("SendMessage"); }
+                }
             }
         }
 
@@ -119,9 +130,8 @@ namespace MastermindServer
                 }
                 else
                 {
-                    stream.WriteByte(errorByte);
-                    stream.WriteByte((byte)'1');
-                    stream.WriteByte((byte)'\n');
+                    messageQueue.Enqueue(errorString + "1\n");
+                    
                     Die("MaxNumberPlayers");
 
                     mensagem = "";
@@ -158,19 +168,17 @@ namespace MastermindServer
                 {
                     authenticated = true;
                     this.nick = novoNick;
-                    stream.WriteByte((byte)loginAprovedByte);
-                    stream.WriteByte((byte)'\n');
+                    messageQueue.Enqueue(loginAprovedString + "\n");
                     Console.WriteLine(nick + " foi autenticado");
-                    server.messageQueue.Enqueue(novoNick + " ligou-se!");
+                    server.messageQueue.Enqueue(messageString + novoNick + " ligou-se!\n");
                 }
                 return true;
             }
             else
             {
                 // nop, that nick is in use.
-                stream.WriteByte((byte)errorByte);
-                stream.WriteByte((byte)'0');
-                stream.WriteByte((byte)'\n');
+
+                messageQueue.Enqueue(errorString + "0\n");
                 Die("FailedTryRename");
                 return false;
             }
@@ -219,7 +227,7 @@ namespace MastermindServer
             string messageContent = firstMessage.Substring(1, firstMessage.IndexOfAny(new char[] { '\n', '\r' }) - 1);
 
             //rename nick 
-            if (firstMessage.StartsWith(messageContent + "/rename"))
+            if (firstMessage.StartsWith(messageString + "/rename"))
             {
                 string newNick = messageContent.Substring(8, messageContent.Length - 8);
                 string oldname = nick;
@@ -227,7 +235,7 @@ namespace MastermindServer
                 if (server.Rename(nick, newNick))
                 {
                     nick = newNick;
-                    newNick = oldname + " changed their name to " + nick;
+                    newNick = messageString + oldname + " changed their name to " + nick + "\n";
                     server.messageQueue.Enqueue(newNick);
 
                     Console.WriteLine(newNick);
@@ -235,8 +243,8 @@ namespace MastermindServer
 
                 else
                 {
-                    newNick = nick + " can't change name to " + newNick + " because it's already in use. Try again.";
-                    server.messageQueue.Enqueue(newNick);
+                    newNick = messageString + nick + " can't change name to " + newNick + " because it's already in use. Try again.\n";
+                    messageQueue.Enqueue(newNick);
 
                     Console.WriteLine(newNick);
                 }
@@ -245,7 +253,7 @@ namespace MastermindServer
             //if plain message
             else
             {
-                messageContent = nick + ": " + messageContent;
+                messageContent = messageString + nick + ": " + messageContent + "\n";
                 server.messageQueue.Enqueue(messageContent);
                 Console.WriteLine(messageContent);
             }
@@ -267,6 +275,7 @@ namespace MastermindServer
             if (server.firstSequence.Count == 4)
             {
                 Console.WriteLine(nick + " mandou sequencia completa");
+                server.messageQueue.Enqueue(messageString + "Sequence sent\n");
                 foreach (KeyValuePair<string, ChatClient> pair in server.clients)
                 {
                     pair.Value.Switch();
@@ -283,7 +292,7 @@ namespace MastermindServer
 
         private bool ProcessLogout(string firstMessage)
         {
-            string logout = nick + " logging out. ";
+            string logout = messageString + nick + " logging out.\n";
             server.messageQueue.Enqueue(logout);
 
             Console.WriteLine(nick + " logging out");
@@ -303,7 +312,7 @@ namespace MastermindServer
             string color = firstMessage.Substring(1, firstMessage.Length - 2);
             server.guessSequence.Add(color);
             Console.WriteLine(nick + " mandou " + color);
-            int result = 0;
+            int result = 2;
             if (server.guessSequence.Count == 4)
             {
                 Console.WriteLine(nick + " mandou sequencia completa");
@@ -319,6 +328,8 @@ namespace MastermindServer
                 server.ChallengedWin();
             else if (result == -1)
                 server.ChallengerWin();
+            else if (result == 0)
+                server.messageQueue.Enqueue(messageString + "Challenged has sent guess\n");
             
             if (mensagem.Length != firstMessage.Length)
             {
@@ -337,13 +348,14 @@ namespace MastermindServer
             if (server.correctionSequence.Count == 4)
             {
                 Console.WriteLine(nick + " mandou sequencia completa");
+                server.messageQueue.Enqueue(messageString + "Challenger has sent correction\n");
                 server.VerefyCorrection();
                 foreach (KeyValuePair<string, ChatClient> pair in server.clients)
                 {
                     pair.Value.Switch();
                 }
                 server.SendCorrection();
-            }
+            }            
 
             if (mensagem.Length != firstMessage.Length)
             {
@@ -354,11 +366,9 @@ namespace MastermindServer
             return true;
         }
 
-        public void Start(byte b)
+        public void Start(string b)
         {
-            stream.WriteByte(startByte);
-            stream.WriteByte(b);
-            stream.WriteByte((byte)'\n');
+            messageQueue.Enqueue(startString + b + "\n");
         }
 
         public void Switch()
@@ -371,15 +381,13 @@ namespace MastermindServer
 
         public void Play()
         {
-            stream.WriteByte((byte)playByte);
-            stream.WriteByte((byte)'\n');
+            messageQueue.Enqueue(playString + "\n");
             playing = true;
         }
 
         public void StopPlaying()
         {
-            stream.WriteByte((byte)stopPlayingByte);
-            stream.WriteByte((byte)'\n');
+            messageQueue.Enqueue(stopPlayingString + "\n");
             playing = false;
         }
 

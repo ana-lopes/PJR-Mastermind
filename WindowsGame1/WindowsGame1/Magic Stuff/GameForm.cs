@@ -165,6 +165,7 @@ namespace WindowsGame1
             }
             else if (firstMessage.StartsWith(defeatString))
             {
+                StopPlaying();
                 MessageBox.Show("Defeat");
                 MainMenu.instance.tabuleiro.Reset();
             }
