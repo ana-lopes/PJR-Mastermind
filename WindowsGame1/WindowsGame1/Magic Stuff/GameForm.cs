@@ -97,6 +97,7 @@ namespace WindowsGame1
                 catch (Exception e)
                 {
                     MessageBox.Show("ERROR while trying to read data: \n" + e.ToString());
+                    actions.Enqueue(this.Close);
                 }
             }
         }
@@ -166,12 +167,14 @@ namespace WindowsGame1
                 actions.Enqueue(StopPlaying);
                 MessageBox.Show("Victory"); 
                 MainMenu.instance.tabuleiro.Reset();
+                jogada = 0;
             }
             else if (firstMessage.StartsWith(defeatString))
             {
                 actions.Enqueue(StopPlaying);
                 MessageBox.Show("Defeat");
                 MainMenu.instance.tabuleiro.Reset();
+                jogada = 0;
             }
             else if (firstMessage.StartsWith(restartString))
             {
@@ -325,6 +328,7 @@ namespace WindowsGame1
                 for (int i = 0; i<4; i++)
                 {
                     list.Add(MainMenu.instance.tabuleiro.filas[10 - jogada + 1].GetColorSequence(i));
+                    MainMenu.instance.tabuleiro.filas[10 - jogada + 1].TirarCorrecao();
                 }
                 foreach (string s in sequence)
                 {
@@ -428,9 +432,7 @@ namespace WindowsGame1
         {
             stream.WriteByte(logoutByte);
             stream.WriteByte((byte)'\n');
-
             this.Hide();
-
             base.OnClosed(e);
             form.Show();
         }

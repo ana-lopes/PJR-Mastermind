@@ -130,6 +130,7 @@ namespace WindowsGame1
             if (indexCor > 0)
             {
                 cores[indexCor - 1].color = Color.White;
+                cores[indexCor - 1].colorName = ColorName.Empty;
                 indexCor--;
             }
         }
@@ -139,6 +140,7 @@ namespace WindowsGame1
             if (indexCorrecao > 0)
             {
                 correcao[(indexCorrecao - 1)/2, (indexCorrecao - 1) % 2].color = Color.CornflowerBlue;
+                correcao[(indexCorrecao - 1) / 2, (indexCorrecao - 1) % 2].colorName = ColorName.Empty;
                 indexCorrecao--;
             }
         }

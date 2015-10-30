@@ -427,6 +427,8 @@ namespace MastermindServer
             stream.Close();
             client.Close();
 
+            Console.WriteLine("movivo: " + motivo);
+
             if (server.clients.Remove(nick))
             {
                 Console.WriteLine(nick + " desligou-se");
