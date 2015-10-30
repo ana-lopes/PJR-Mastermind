@@ -378,11 +378,11 @@ namespace MastermindServer
                 Console.WriteLine(nick + " mandou sequencia completa");
                 server.messageQueue.Enqueue(messageString + "Challenger has sent correction\n");
                 server.VerefyCorrection();
+                server.SendCorrection();
                 foreach (KeyValuePair<string, ChatClient> pair in server.clients)
                 {
                     pair.Value.Switch();
                 }
-                server.SendCorrection();
             }            
 
             if (mensagem.Length != firstMessage.Length)

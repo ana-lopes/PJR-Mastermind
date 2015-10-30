@@ -53,7 +53,7 @@ namespace WindowsGame1
             this.form = form;
             this.client = client;
             this.stream = client.GetStream();
-            jogada = 0;
+            Jogada = 0;
             mensagem = "";
 
             //chat
@@ -136,14 +136,14 @@ namespace WindowsGame1
                     playerType = PlayerType.Challenger;
                     actions.Enqueue(Layout2);
                     actions.Enqueue(MyGame.instance.Start1);
-                    jogada = 0;
+                    Jogada = 0;
                 }
                 else if (firstMessage.StartsWith(startString + "2"))
                 {
                     playerType = PlayerType.Challenged;
                     actions.Enqueue(Layout2);
                     actions.Enqueue(MyGame.instance.Start2);
-                    jogada = 0;
+                    Jogada = 0;
                 }
                 else
                     MessageBox.Show("ERROR while trying to read data");
@@ -167,14 +167,14 @@ namespace WindowsGame1
                 actions.Enqueue(StopPlaying);
                 MessageBox.Show("Victory"); 
                 MainMenu.instance.tabuleiro.Reset();
-                jogada = 0;
+                Jogada = 0;
             }
             else if (firstMessage.StartsWith(defeatString))
             {
                 actions.Enqueue(StopPlaying);
                 MessageBox.Show("Defeat");
                 MainMenu.instance.tabuleiro.Reset();
-                jogada = 0;
+                Jogada = 0;
             }
             else if (firstMessage.StartsWith(restartString))
             {
@@ -211,11 +211,12 @@ namespace WindowsGame1
             Cyan.Visible = true;
 
             CheaterAutoCorrect.Text = "CHEATER!";
+            Jogada = 0;
         }
 
         private void Play()
         {
-            jogada++;
+            Jogada = jogada + 1;
             if (jogada != 1)
                 CheaterAutoCorrect.Enabled = true;
             RedWhite.Enabled = true;
@@ -435,6 +436,15 @@ namespace WindowsGame1
             this.Hide();
             base.OnClosed(e);
             form.Show();
+        }
+
+        private int Jogada
+        {
+            set 
+            {
+                jogada = value;
+                Console.WriteLine("jogada: " + jogada);
+            }
         }
     }
 }
