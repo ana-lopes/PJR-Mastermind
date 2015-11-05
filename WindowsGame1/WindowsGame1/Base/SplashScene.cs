@@ -25,7 +25,7 @@ namespace WindowsGame1
             splashTexture = MyGame.instance.Content.Load<Texture2D>("Splash");
             splash = new Animacao(splashTexture,
                 new Vector2(MyGame.instance.GraphicsDevice.Viewport.Width / 2,
-                    MyGame.instance.GraphicsDevice.Viewport.Height / 2), 2, 1, 0.1f, this);
+                    MyGame.instance.GraphicsDevice.Viewport.Height / 2), 6, 2, 0.1f, this);
             RegistarAnimacao(splash, 0);
             Thread thread = new Thread(CreateMainMenu);
             thread.Start();

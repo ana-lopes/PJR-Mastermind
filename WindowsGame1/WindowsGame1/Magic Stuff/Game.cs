@@ -37,7 +37,7 @@ namespace WindowsGame1
 
             Update(delta);
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightPink);
             
             spriteBatch.Begin();
             Render();

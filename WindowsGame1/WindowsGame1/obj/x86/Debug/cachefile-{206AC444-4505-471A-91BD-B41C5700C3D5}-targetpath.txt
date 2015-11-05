@@ -1,5 +1,5 @@
 Content\hudFont.xnb
 Content\Splash.xnb
-Content\wood.xnb
 Content\fila.xnb
 Content\buraco.xnb
+Content\wood.xnb

@@ -7,8 +7,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hudFont.xnb</Output>
-      <Time>2015-10-15T10:12:24.9789318+01:00</Time>
+      <Output>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\hudFont.xnb</Output>
+      <Time>2015-10-06T16:26:36+01:00</Time>
     </Item>
     <Item>
       <Source>Splash.png</Source>
@@ -16,17 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\Splash.xnb</Output>
-      <Time>2015-10-15T10:12:24.9759194+01:00</Time>
-    </Item>
-    <Item>
-      <Source>wood.jpg</Source>
-      <Name>wood</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\wood.xnb</Output>
-      <Time>2015-10-15T11:47:14.0547735+01:00</Time>
+      <Output>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\Splash.xnb</Output>
+      <Time>2015-10-10T14:07:59.0435852+01:00</Time>
     </Item>
     <Item>
       <Source>fila.png</Source>
@@ -34,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\fila.xnb</Output>
-      <Time>2015-10-15T11:53:47.685057+01:00</Time>
+      <Output>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\fila.xnb</Output>
+      <Time>2015-11-05T16:05:19.7030318+00:00</Time>
     </Item>
     <Item>
       <Source>buraco.png</Source>
@@ -43,8 +34,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\buraco.xnb</Output>
-      <Time>2015-10-15T12:26:13.9861415+01:00</Time>
+      <Output>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\buraco.xnb</Output>
+      <Time>2015-11-05T15:46:17.6783001+00:00</Time>
+    </Item>
+    <Item>
+      <Source>wood.png</Source>
+      <Name>wood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\wood.xnb</Output>
+      <Time>2015-11-05T16:01:01.5622278+00:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -53,10 +53,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\TOSHIBA\Desktop\Redes_Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\ASUS\Documents\Visual Studio 2015\Projects\Programação de Jogos em Rede\Mastermind\PJR-Mastermind\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -84,8 +84,8 @@
         <Value>2011-09-01T16:22:30+01:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2015-09-29T18:51:58.1477873+01:00</Value>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2015-10-08T09:19:41.4716359+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

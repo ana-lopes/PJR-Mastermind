@@ -12,7 +12,7 @@ namespace WindowsGame1
     {
         protected SpriteBatch spriteBatch;
         GraphicsDevice graphicsDevice;
-        Color clearColor = Color.CornflowerBlue;
+        Color clearColor = Color.LightPink;
 
         private List<Update> updates, updatesRemover, updatesAdicionar;
         private SortedDictionary<int, List<Animacao>> anim, animRemover, animAdicionar;

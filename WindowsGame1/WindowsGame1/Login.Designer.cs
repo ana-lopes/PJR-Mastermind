@@ -69,7 +69,7 @@
             this.NickTextBox.Name = "NickTextBox";
             this.NickTextBox.Size = new System.Drawing.Size(294, 22);
             this.NickTextBox.TabIndex = 3;
-            this.NickTextBox.Text = "poop";
+            this.NickTextBox.Text = "kitty";
             // 
             // loginButton
             // 
@@ -102,6 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(414, 129);
             this.Controls.Add(this.portTextBox);
             this.Controls.Add(this.label3);

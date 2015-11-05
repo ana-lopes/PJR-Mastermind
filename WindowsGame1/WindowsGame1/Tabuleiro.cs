@@ -22,8 +22,10 @@ namespace WindowsGame1
             }
             sequencia = new Fila(cena, 11);
             cena.RegistarAnimacao(sequencia, 1);
-            escala = new Vector2(MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
-                MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
+            //escala = new Vector2(MyGame.instance.GraphicsDevice.Viewport.Width / frameSize.X,
+            //    MyGame.instance.GraphicsDevice.Viewport.Height / frameSize.Y);
+
+            escala = new Vector2(1,1);
         }
 
         public void Reset()

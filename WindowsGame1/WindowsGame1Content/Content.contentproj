@@ -44,13 +44,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wood.jpg">
-      <Name>wood</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="fila.png">
       <Name>fila</Name>
       <Importer>TextureImporter</Importer>
@@ -60,6 +53,13 @@
   <ItemGroup>
     <Compile Include="buraco.png">
       <Name>buraco</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="wood.png">
+      <Name>wood</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

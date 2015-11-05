@@ -150,8 +150,10 @@ namespace WindowsGame1
             }
             else if (firstMessage.StartsWith(playString))
                 actions.Enqueue(Play);
+
             else if (firstMessage.StartsWith(stopPlayingString))
                 actions.Enqueue(StopPlaying);
+
             else if (firstMessage.StartsWith(guessString))
             {
                 string colorString = mensagem.Substring(1, mensagem.IndexOfAny(new char[] { '\n' }));
